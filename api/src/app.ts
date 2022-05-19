@@ -11,10 +11,15 @@ import { decodeToken, getReqToken } from './lib/jwtUtils'
 import './mongoose-connect'
 
 const app: Application = express()
+// const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(cors({ origin: ['http://localhost:3000'], credentials: true }))
+
+app.get('/', (req, res) => {
+    res.json({ message: 'Server running' })
+})
 
 const startApolloServer = async () => {
   const httpServer = createServer(app)
@@ -38,5 +43,6 @@ const startApolloServer = async () => {
     cors: { origin: ['http://localhost:3000'], credentials: true },
   })
   httpServer.listen({ port: process.env.PORT })
+    // httpServer.listen({ port: 3001 })
 }
 startApolloServer().catch(console.error)
