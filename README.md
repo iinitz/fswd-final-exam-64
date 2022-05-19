@@ -1,8 +1,8 @@
 # FsWD 64 - Final exam
 
 ## Student
-#### Student ID: 
-#### Name (TH): 
+#### Student ID: 62070006 
+#### Name (TH): นายกฤษกร อำนาจสถิตย์
 
 ## Demo
 - [Twitter clone](https://fswd64.devnss.com)

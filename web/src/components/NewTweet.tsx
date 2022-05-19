@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client'
-import { useCallback } from 'react'
-
+import { gql, useMutation } from '@apollo/client'
+import React, { useCallback } from 'react'
+import { useState } from 'react'
 import { MAX_TWEET_LENGTH } from '../constants'
 import { useApp } from '../contexts/AppContext'
 import { usePage } from '../contexts/PageContext'
@@ -17,8 +17,14 @@ export const NewTweet = () => {
   const { user } = useApp()
   const { refetch } = usePage()
   // WEB: Implement text state here
+  const [text, setText] = useState("")
   // WEB: Implement useMutation for createTweetMutation here
+  const [createTweetMutation] = useMutation(CREATE_TWEET_MUTATION)
   // WEB: Implement useCallback for handleTextChange with condition text length <= MAX_TWEET_LENGTH here
+  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
+    setText(e.target.value)
+  }
+
   const handleCreateTweet = useCallback(
     async () => {
       const record: ICreateOneTweetInput = {
@@ -43,9 +49,9 @@ export const NewTweet = () => {
       </div>
       <div className="new-tweet-form">
         <div className="new-tweet-input">
-          {/* WEB: Implement textarea with text state here */}
           <textarea
             data-testid="new-tweet-input"
+            value={text}
             placeholder="What's happening?"
           />
         </div>
