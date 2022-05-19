@@ -21,7 +21,7 @@ export const NewTweet = () => {
   // WEB: Implement useCallback for handleTextChange with condition text length <= MAX_TWEET_LENGTH here
   const handleCreateTweet = useCallback(
     async () => {
-      const record: ICreateOneTweetInput = {
+      const record = {
         text,
       }
       try {

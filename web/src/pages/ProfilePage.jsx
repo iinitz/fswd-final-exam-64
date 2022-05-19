@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql, useMutation, useQuery } from '@apollo/client'
 import moment from 'moment'
 import { useCallback, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
@@ -65,15 +65,27 @@ const FOLLOW_MUTATION = gql`
 // WEB: Implement unfollow mutation here
 const UNFOLLOW_MUTATION = gql`
 `
-
 const ProfilePage = () => {
   const { user } = useApp()
   const { username } = useParams()
   // WEB: Implement useQuery for profile query (destruct { data, loading, refetch } from useQuery) with options fetchPolicy: 'network-only' here
+  const { data, loading, refetch } = useQuery(PROFILE_QUERY, {
+    fetchPolicy: 'network-only'
+  })
   // WEB: Implement useMutation for followMutation and unfollowMutation here
+  const followMutation = useMutation(FOLLOW_MUTATION, {
+    variables: {
+      followedId: record
+    }
+  })
+  const unfollowMutation = useMutation(UNFOLLOW_MUTATION, {
+    variables: {
+      followedId: filter
+    }
+  })
   const handleFollow = useCallback(
     async () => {
-      const record: ICreateOneFollowerInput = {
+      const record = {
         followedId: data?.profile?._id,
       }
       try {
@@ -87,7 +99,7 @@ const ProfilePage = () => {
   )
   const handleUnfollow = useCallback(
     async () => {
-      const filter: IFilterRemoveOneFollowerInput = {
+      const filter = {
         followedId: data?.profile?._id,
       }
       try {
@@ -141,7 +153,7 @@ const ProfilePage = () => {
             </h2>
             <div className="profile-tweet-count"><span data-testid="tweet-count">{data?.profile?.tweetsCount ?? 0}</span> {plural((data?.profile?.tweetsCount ?? 0), 'Tweet')}</div>
             <div className="profile-root">
-              <div className="profile-cover" style={{ backgroundColor: stc(data?.profile?._id as string) }} />
+              <div className="profile-cover" style={{ backgroundColor: stc(data?.profile?._id) }} />
               <div className="profile-avatar">
                 <Avatar username={data?.profile?.username ?? ''} size={AvatarSize.LARGE} />
                 <div className="profile-actions">
@@ -151,7 +163,7 @@ const ProfilePage = () => {
               <div className="profile-info">
                 <h3 className="profile-fullname hilight" data-testid="profile-fullname">{data?.profile?.fullname}</h3>
                 <div className="profile-username" data-testid="profile-username">@{data?.profile?.username}</div>
-                <div className="profile-timestamp" data-testid="profile-timestamp">Joined {moment(data?.profile?.createdAt as string).format('MMMM YYYY')}</div>
+                <div className="profile-timestamp" data-testid="profile-timestamp">Joined {moment(data?.profile?.createdAt).format('MMMM YYYY')}</div>
                 <div className="profile-stat">
                   <div className="profile-following-count"><span className="hilight" data-testid="profile-following-count">{data?.profile?.followingCount}</span> Following</div>
                   <div className="profile-followers-count"><span className="hilight" data-testid="profile-followers-count">{data?.profile?.followersCount}</span> Followers</div>
@@ -160,7 +172,7 @@ const ProfilePage = () => {
             </div>
             <div className="profile-tweets" data-testid="tweets">
               {data?.tweets?.map((tweet) => (
-                <Tweet key={tweet._id as string} tweet={tweet} />
+                <Tweet key={tweet._id} tweet={tweet} />
               ))}
             </div>
           </>
