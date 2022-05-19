@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql, useMutation, useQuery } from '@apollo/client'
 import moment from 'moment'
 import { useCallback, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
@@ -12,7 +12,7 @@ import { useApp } from '../contexts/AppContext'
 import { PageProvider } from '../contexts/PageContext'
 import { plural } from '../lib/utils'
 import {
-  ICreateOneFollowerInput, IFilterRemoveOneFollowerInput,
+  ICreateOneFollowerInput, IFilterRemoveOneFollowerInput, IMutation, IMutationFollowArgs, IMutationUnfollowArgs, ITweet,
 } from '../types'
 
 import './ProfilePage.css'
@@ -61,16 +61,37 @@ query ($username: String!) {
 `
 // WEB: Implement follow mutation here
 const FOLLOW_MUTATION = gql`
+mutation ($followedId: String!) {
+  follow (followedId: $followedId) {
+    recordId
+  }
+}
 `
 // WEB: Implement unfollow mutation here
 const UNFOLLOW_MUTATION = gql`
+mutation ($followedId: String!) {
+  unfollow (followedId: $followedId) {
+    recordId
+  }
+}
 `
 
 const ProfilePage = () => {
   const { user } = useApp()
   const { username } = useParams()
   // WEB: Implement useQuery for profile query (destruct { data, loading, refetch } from useQuery) with options fetchPolicy: 'network-only' here
+  const { loading, data, refetch } = useQuery(
+    PROFILE_QUERY,
+    {
+      variables: {
+        username,
+      },
+      fetchPolicy: 'network-only',
+    },
+  )
   // WEB: Implement useMutation for followMutation and unfollowMutation here
+  const [followMutation] = useMutation<IMutation, IMutationFollowArgs>(FOLLOW_MUTATION)
+  const [unfollowMutation] = useMutation<IMutation, IMutationUnfollowArgs>(UNFOLLOW_MUTATION)
   const handleFollow = useCallback(
     async () => {
       const record: ICreateOneFollowerInput = {
@@ -159,7 +180,7 @@ const ProfilePage = () => {
               </div>
             </div>
             <div className="profile-tweets" data-testid="tweets">
-              {data?.tweets?.map((tweet) => (
+              {data?.tweets?.map((tweet: ITweet) => (
                 <Tweet key={tweet._id as string} tweet={tweet} />
               ))}
             </div>
