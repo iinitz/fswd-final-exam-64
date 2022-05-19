@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt'
 
 import { IUser } from '../types/models'
 
-export async function preSaveHook(this: IUser, next: (err?: NativeError) => void) {
+export async function preSaveHook(this , next ) {
   if (!this.isModified('password')) {
     return next()
   }
@@ -11,11 +11,11 @@ export async function preSaveHook(this: IUser, next: (err?: NativeError) => void
     this.set('password', await bcrypt.hash(this.password, salt))
     return next()
   } catch (err) {
-    return next(err as NativeError)
+    return next(err)
   }
 }
-export async function preUpdateHook(this: IUser, next: (err?: NativeError) => void) {
-  const update = this.getUpdate() as { $set?: IUser }
+export async function preUpdateHook(this) {
+  const update = this.getUpdate() 
   if (!update?.$set?.password) {
     return next()
   }
@@ -24,9 +24,9 @@ export async function preUpdateHook(this: IUser, next: (err?: NativeError) => vo
     this.set('password', await bcrypt.hash(update?.$set?.password, salt))
     return next()
   } catch (err) {
-    return next(err as NativeError)
+    return next(err)
   }
 }
-export async function verifyPassword(this: IUser, password: string) {
-  return bcrypt.compare(password, this.password)
+export async function verifyPassword(a, password) {
+  return bcrypt.compare(password, a.password)
 }
