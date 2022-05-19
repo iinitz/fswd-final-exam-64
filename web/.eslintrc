@@ -4,6 +4,8 @@
     "project": "./tsconfig.json"
   },
   "rules": {
+ 
+    "linebreak-style": 0,
     "no-console": 0,
     "max-len": 0,
     "no-underscore-dangle": [
@@ -14,6 +16,12 @@
         ]
       }
     ],
+    "no-unused-vars": [
+      "error",
+      {
+          "varsIgnorePattern": "^[A-Z]"
+      }
+  ],
     "@typescript-eslint/no-misused-promises": 0
   }
 }

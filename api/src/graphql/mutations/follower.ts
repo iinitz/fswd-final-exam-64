@@ -1,7 +1,6 @@
 import { ForbiddenError } from 'apollo-server-core'
 import { ResolverResolveParams, ResolverRpCb } from 'graphql-compose'
 import { mergeDeepRight } from 'ramda'
-
 import { FollowerTC } from '../../models/follower'
 import { IApolloContext } from '../../types'
 import { IFollower } from '../../types/models'
