@@ -11,8 +11,37 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const { login } = useApp()
   // WEB: Implement username and password state here
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   // WEB: Implement handleUsernameChange and handlePasswordChange here
+
+  const handleUsernameChange = useCallback(
+    async (e: React.SyntheticEvent) => {
+      e.preventDefault()
+      try {
+        setError('')
+        setUsername(e.currentTarget.innerHTML)
+      } catch (err) {
+        setError((err as Error).message)
+      }
+    },
+    [username],
+  )
+
+  const handlePasswordChange = useCallback(
+    async (e: React.SyntheticEvent) => {
+      e.preventDefault()
+      try {
+        setError('')
+        setPassword(e.currentTarget.innerHTML)
+      } catch (err) {
+        setError((err as Error).message)
+      }
+    },
+    [password],
+  )
+
   const handleSubmit = useCallback(
     async (e: React.SyntheticEvent) => {
       e.preventDefault()
