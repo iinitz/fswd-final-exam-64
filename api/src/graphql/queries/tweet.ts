@@ -22,7 +22,7 @@ export const tweets = schemaComposer.createResolver({
     if (!user) {
       return []
     }
-    const records = await TweetModel.find({ userId: user._id as string }).sort({ createdAt: -1 }).lean()
+    const records = await TweetModel.find({ userId: user._id }).sort({ createdAt: -1 }).lean() // as string
     return records
   },
 })
