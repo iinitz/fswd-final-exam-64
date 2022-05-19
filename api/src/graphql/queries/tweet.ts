@@ -1,5 +1,5 @@
 import { ResolverResolveParams, schemaComposer } from 'graphql-compose'
-
+import { composeMongoose } from 'graphql-compose-mongoose'
 import { FollowerModel } from '../../models/follower'
 import { TweetModel, TweetTC } from '../../models/tweet'
 import { UserModel } from '../../models/user'

@@ -1,8 +1,8 @@
 # FsWD 64 - Final exam
 
 ## Student
-#### Student ID: 
-#### Name (TH): 
+#### Student ID: 62070178
+#### Name (TH): ศิลปวิชญ์ ฤทธิ์น้ำคำ
 
 ## Demo
 - [Twitter clone](https://fswd64.devnss.com)
