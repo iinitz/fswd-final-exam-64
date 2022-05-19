@@ -82,7 +82,8 @@ export const NewTweet = () => {
           <button
             type="button"
             data-testid="new-tweet-button"
-            onClick={text.length == 0 ? console.log('text length = 0') : handleCreateTweet}
+            disabled={text === ''}
+            onClick={handleCreateTweet}
           >
             Tweet
           </button>

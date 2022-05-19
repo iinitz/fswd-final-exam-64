@@ -35,8 +35,7 @@ export const login = schemaComposer.createResolver({
   },
   resolve: async ({ args }) => {
     const { username, password } = args
-    const uname = username.toLowerCase()
-    const user = await UserModel.findOne({ uname })
+    const user = await UserModel.findOne({ username: username.toLowerCase() })
     if (!user) {
       return {
         status: 'error',
