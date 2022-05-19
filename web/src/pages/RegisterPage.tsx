@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 import { useCallback, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -10,14 +10,28 @@ import './RegisterPage.css'
 
 // WEB: Implement register mutation here
 const REGISTER_MUTATION = gql`
+mutation($record: CreateOneUserInput!) {
+  register(record: $record) {
+    recordId
+  }
+}
 `
 
 const RegisterPage = () => {
   const navigate = useNavigate()
   // WEB: Implement fullname, username and password state here
+  const [fullname, setFullname] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+
   // WEB: Implement useMutation for registerMutation here
+  const [registerMutation] = useMutation(REGISTER_MUTATION)
+
   // WEB: Implement handleFullnameChange, handleUsernameChange and handlePasswordChange here
+  const handleFullnameChange = (e:React.ChangeEvent<HTMLInputElement>) => setFullname(e.target.value)
+  const handleUsernameChange = (e:React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)
+  const handlePasswordChange = (e:React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)
   const handleSubmit = useCallback(
     async (e: React.SyntheticEvent) => {
       e.preventDefault()
@@ -28,7 +42,9 @@ const RegisterPage = () => {
       }
       try {
         setError('')
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const { data: registerData } = await registerMutation({ variables: { record } })
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if (registerData?.register?.recordId) {
           navigate('/login')
         }

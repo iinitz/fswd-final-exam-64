@@ -16,7 +16,31 @@ TweetTC.addRelation(
   },
 )
 // API: Implement retweet relation here
+TweetTC.addRelation(
+  'retweet',
+  {
+    resolver: () => TweetTC.mongooseResolvers.findById(),
+    prepareArgs: {
+      _id: (source: ITweet) => source.userId,
+    },
+    projection: { userId: 1 },
+  },
+)
+
 // API: Implement retweetsCount relation here
+TweetTC.addRelation(
+  'retweetsCount',
+  {
+    resolver: () => TweetTC.mongooseResolvers.count(),
+    prepareArgs: {
+      filter: (source: ITweet) => ({
+        retweetId: source._id as Schema.Types.ObjectId,
+      }),
+    },
+    projection: { _id: 1 },
+  },
+)
+
 // API: Implement likesCount relation here
 TweetTC.addFields({
   retweeted: {
@@ -41,4 +65,32 @@ TweetTC.addFields({
       - findOne like by tweetId from source._id and userId from context.user._id
       - return true if found
   */
+
 })
+
+TweetTC.addFields({
+  liked: {
+    type: 'Boolean',
+    resolve: async (source: ITweet, _args, context: IApolloContext) => {
+      if (!context.user) {
+        return false
+      }
+      const { user: { _id: userId } } = context
+      const liked = await TweetModel.findOne({
+        userId,
+        tweetId: source._id as Schema.Types.ObjectId,
+      })
+      return !!liked
+    },
+  },
+  /*
+    API: Implement field liked here
+    type: Boolean
+    resolve:
+      - if not context.user return false
+      - findOne like by tweetId from source._id and userId from context.user._id
+      - return true if found
+  */
+
+})
+
