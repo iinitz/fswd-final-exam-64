@@ -15,35 +15,38 @@ const REGISTER_MUTATION = gql`
 const RegisterPage = () => {
   const navigate = useNavigate()
   // WEB: Implement fullname, username and password state here
+  const [username, setUser] = useState('')
+  const [password, setPassword] = useState('')
+  const [fullname, setFullname] = useState('')
   const [error, setError] = useState('')
   // WEB: Implement useMutation for registerMutation here
   // WEB: Implement handleFullnameChange, handleUsernameChange and handlePasswordChange here
   const handleSubmit = useCallback(
-    async (e: React.SyntheticEvent) => {
+    async (e) => {
       e.preventDefault()
-      const record: ICreateOneUserInput = {
+      const record = {
         fullname,
         username,
         password,
       }
       try {
         setError('')
-        const { data: registerData } = await registerMutation({ variables: { record } })
-        if (registerData?.register?.recordId) {
+        /* const { data: registerData } = await registerMutation({ variables: { record } })
+        if (registerData?.register?.recordId) { */
           navigate('/login')
-        }
+        /* } */
       } catch (err) {
-        if ((err as Error).message.startsWith('E11000')) {
+        if ((err).message.startsWith('E11000')) {
           setError(`Duplicate username ${username}`)
         } else {
           setError('Server error')
         }
       }
     },
-    [fullname, navigate, password, registerMutation, username],
+    [fullname, navigate, password, /* registerMutation */, username],
   )
   return (
-    <LandingPageLayout>
+    <div class="container">
       <form className="register-form" onSubmit={handleSubmit}>
         <label htmlFor="fullname-input">
           Fullname
@@ -88,7 +91,7 @@ const RegisterPage = () => {
       <Link to="/login">
         <button className="button-outlined" type="button" data-testid="login-button">Login</button>
       </Link>
-    </LandingPageLayout>
+    </div>
   )
 }
 

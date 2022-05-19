@@ -1,14 +1,14 @@
 import { Schema } from 'mongoose'
 
 import { FollowerModel } from '../../models/follower'
-import { TweetTC } from '../../models/tweet'
+/* import { TweetTC } from '../../models/tweet' */
 import { UserTC } from '../../models/user'
 import { IApolloContext } from '../../types'
 import { IUser } from '../../types/models'
 
 // API: Implement followingCount relation here
 // API: Implement followersCount relation here
-UserTC.addRelation(
+/* UserTC.addRelation(
   'tweetsCount',
   {
     resolver: () => TweetTC.mongooseResolvers.count(),
@@ -19,7 +19,7 @@ UserTC.addRelation(
     },
     projection: { _id: 1 },
   },
-)
+) */
 UserTC.addFields({
   following: {
     type: 'Boolean',

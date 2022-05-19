@@ -4,9 +4,9 @@ import {
 } from 'react'
 import { useCookies } from 'react-cookie'
 
-import {
+/* import {
   IMutation, IMutationLoginArgs, IQuery, IUser,
-} from '../types'
+} from '../types' */
 
 const ME_QUERY = gql`
 query {
@@ -26,24 +26,24 @@ mutation ($username: String! $password: String!) {
 }
 `
 
-export interface IAppContext {
+/* export interface IAppContext {
   loading: boolean
   user: IUser | null
   login: (username: string, password: string) => Promise<void>
   logout: () => void
-}
-export const AppContext = createContext<IAppContext>({} as IAppContext)
+} */
+export const AppContext = createContext()
 
-export interface IAppContextProviderProps {
+/* export interface IAppContextProviderProps {
   children: React.ReactNode
-}
-export const AppProvider = ({ children }: IAppContextProviderProps) => {
-  const [user, setUser] = useState<IUser | null>(null)
+} */
+export const AppProvider = ({ children }) => {
+  /* const [user, setUser] = useState<IUser | null>(null) */
   const [cookies, setCookie, removeCookie] = useCookies(['token'])
-  const [loadMe, { data, loading }] = useLazyQuery<IQuery, object>(ME_QUERY, { fetchPolicy: 'network-only' })
-  const [loginMutation] = useMutation<IMutation, IMutationLoginArgs>(LOGIN_MUTATION)
+  /* const [loadMe, { data, loading }] = useLazyQuery<IQuery>(ME_QUERY, { fetchPolicy: 'network-only' })
+  const [loginMutation] = useMutation<IMutation>(LOGIN_MUTATION) */
   const login = useCallback(
-    async (username: string, password: string) => {
+    async (username, password) => {
       const { data: loginData } = await loginMutation({ variables: { username, password } })
       if (loginData?.login?.token) {
         setCookie('token', loginData.login.token, { maxAge: 86400, path: '*' })
