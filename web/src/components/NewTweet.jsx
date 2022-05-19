@@ -31,7 +31,7 @@ export const NewTweet = () => {
   // WEB: Implement useCallback for handleTextChange with condition text length <= MAX_TWEET_LENGTH here
   const handleCreateTweet = useCallback(
     async (e) => {
-      e.preventDefault()
+    //   e.preventDefault()
       if (text.length === 0) {
         setDisabled(true)
       }

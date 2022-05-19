@@ -16,6 +16,17 @@ const LoginPage = () => {
 
   const [error, setError] = useState('')
   // WEB: Implement handleUsernameChange and handlePasswordChange here
+
+  //   const handleUsernameChange = useCallback(
+  //     async (e: React.SyntheticEvent) => {
+  //       e.preventDefault()
+  //     //   setUserName(e.target.value)
+  //     },
+  //   )
+  //   function handleUsernameChange(e) {
+
+  //   }
+
   const handleSubmit = useCallback(
     async (e: React.SyntheticEvent) => {
       e.preventDefault()
@@ -39,7 +50,7 @@ const LoginPage = () => {
             type="text"
             value={username}
             onChange={(e) => setUserName(e.target.value)}
-            onChange={handleUsernameChange}
+            // onChange={handleUsernameChange(e)}
             data-testid="username-input"
           />
         </label>
@@ -50,7 +61,7 @@ const LoginPage = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            onChange={handlePasswordChange}
+            // onChange={handlePasswordChange(e)}
             data-testid="password-input"
           />
         </label>

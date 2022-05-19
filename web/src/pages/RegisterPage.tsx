@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 import { useCallback, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -29,15 +29,15 @@ const RegisterPage = () => {
   const registerMutation = useMutation(REGISTER_MUTATION)
 
   // WEB: Implement handleFullnameChange, handleUsernameChange and handlePasswordChange here
-  function handleFullnameChange(e) {
-    setFullName(e.target.value)
-  }
-  function handleUsernameChange(e) {
-    setUserName(e.target.value)
-  }
-  function handlePasswordChange(e) {
-    setPassword(e.target.value)
-  }
+  //   function handleFullnameChange(e) {
+  //     setFullName(e.target.value)
+  //   }
+  //   function handleUsernameChange(e) {
+  //     setUserName(e.target.value)
+  //   }
+  //   function handlePasswordChange(e) {
+  //     setPassword(e.target.value)
+  //   }
   const handleSubmit = useCallback(
     async (e: React.SyntheticEvent) => {
       e.preventDefault()
@@ -71,7 +71,8 @@ const RegisterPage = () => {
             id="fullname-input"
             type="text"
             value={fullname}
-            onChange={handleFullnameChange(e)}
+            onChange={(e) => setFullName(e.target.value)}
+            // onChange={handleFullnameChange(e)}
             data-testid="fullname-input"
           />
         </label>
@@ -81,7 +82,8 @@ const RegisterPage = () => {
             id="username-input"
             type="text"
             value={username}
-            onChange={handleUsernameChange(e)}
+            onChange={(e) => setUserName(e.target.value)}
+            // onChange={handleUsernameChange(e)}
             data-testid="username-input"
           />
         </label>
@@ -91,7 +93,8 @@ const RegisterPage = () => {
             id="password-input"
             type="password"
             value={password}
-            onChange={handlePasswordChange(e)}
+            onChange={(e) => setPassword(e.target.value)}
+            // onChange={handlePasswordChange(e)}
             data-testid="password-input"
           />
         </label>
