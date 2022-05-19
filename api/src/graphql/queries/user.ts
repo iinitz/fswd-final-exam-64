@@ -1,4 +1,5 @@
 import { ResolverResolveParams, schemaComposer } from 'graphql-compose'
+import { composeMongoose } from 'graphql-compose-mongoose'
 
 import { UserModel, UserTC } from '../../models/user'
 import { IApolloContext } from '../../types'
