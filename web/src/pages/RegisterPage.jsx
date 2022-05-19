@@ -10,8 +10,8 @@ import './RegisterPage.css'
 
 // WEB: Implement register mutation here
 const REGISTER_MUTATION = gql`
-mutation ($record: CreateOnePostInput!) {
-  createPost (record: $record) {
+mutation ($record: CreateOneUsertInput!) {
+  createUser (record: $record) {
     recordId
   }
 }
