@@ -36,6 +36,7 @@ export const NewTweet = () => {
       }
       try {
         const { data: createTweetData } = await createTweetMutation({ variables: { record } })
+        console.log(createTweetData?.createTweet?.recordId)
         if (createTweetData?.createTweet?.recordId) {
           setText('')
           await refetch()
@@ -57,6 +58,7 @@ export const NewTweet = () => {
           <textarea
             data-testid="new-tweet-input"
             placeholder="What's happening?"
+            value={text}
             onChange={handleTextChange}
           />
         </div>
