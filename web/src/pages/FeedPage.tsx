@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql, useQuery } from '@apollo/client'
 import { Navigate } from 'react-router-dom'
 
 import { AppPageLayout } from '../components/Layout/AppPageLayout'
@@ -17,6 +17,15 @@ const FEED_QUERY = gql`
 const FeedPage = () => {
   const { user } = useApp()
   // WEB: Implement useQuery for feed query (destruct { data, loading, refetch } from useQuery) with options fetchPolicy: 'network-only' here
+  const {loading, data, refetch} = useQuery(
+    FEED_QUERY,
+    {
+      variables:{
+        
+      },
+      fetchPolicy: 'network-only'
+    }
+  )
   if (!user) {
     return (
       <Navigate to="/login" />

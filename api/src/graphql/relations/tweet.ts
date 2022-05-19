@@ -3,7 +3,7 @@ import { Schema } from 'mongoose'
 import { TweetModel, TweetTC } from '../../models/tweet'
 import { UserTC } from '../../models/user'
 import { IApolloContext } from '../../types'
-import { ITweet } from '../../types/models'
+import { ILike, ITweet } from '../../types/models'
 
 TweetTC.addRelation(
   'user',
@@ -33,6 +33,21 @@ TweetTC.addFields({
       return !!retweet
     },
   },
+
+  liked: {
+    type: 'Boolean',
+    resolve: async (source: ITweet, _args, context: IApolloContext) => {
+      if (!context.user) {
+        return false
+      }
+      const { user: { _id: userId } } = context
+      const like = await TweetModel.findOne({
+        userId,
+        tweetId: source._id as Schema.Types.ObjectId,
+      })
+      return !!like
+    },
+  },
   /*
     API: Implement field liked here
     type: Boolean
@@ -41,4 +56,5 @@ TweetTC.addFields({
       - findOne like by tweetId from source._id and userId from context.user._id
       - return true if found
   */
+ 
 })

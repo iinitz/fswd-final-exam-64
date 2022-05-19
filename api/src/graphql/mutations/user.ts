@@ -1,4 +1,8 @@
 import { schemaComposer } from 'graphql-compose'
+import { resolve } from 'path'
+import { UserModel } from '../../models/user';
+import { generateToken } from '../../lib/jwtUtils';
+import { JwtPayload, sign, verify } from 'jsonwebtoken'
 
 const LoginPayloadOTC = schemaComposer.createObjectTC({
   name: 'LoginPayload',
@@ -7,6 +11,51 @@ const LoginPayloadOTC = schemaComposer.createObjectTC({
     token: 'String',
   },
 })
+
+const checkPassword = (userPassword: String,password: String) => {
+  if(userPassword == password){
+    return true
+  }
+  else{
+    return false
+  }
+}
+
+// export const login = schemaComposer.createResolver({
+//   name: 'login',
+//   kind: "mutation",
+//   type: LoginPayloadOTC,
+//   args:{
+//     username:"String!",
+//     password:"String",
+//   }
+//   resolve: async ({args}) =>{
+//     const {username,password} = args;
+//     const user = await
+//     UserModel.findOne({username:username.toLowerCase()})
+//     if(!user){
+//       return{
+//         status:"failed",
+//         message:`Username ${username}  not found`,
+//         token:null,
+//       }
+//     }
+//     const validPassword = checkPassword(user.password,password)
+//     if(!validPassword){
+//       return{
+//         status:"failed",
+//         message:"Password Incorrect",
+//         token:null,
+//       }
+//     }
+//     const token = generateToken
+//     return{
+//       status:"success",
+//       message:"Login success",
+//       token:token,
+//     }
+//   }
+// })
 /*
   API: Implement resolver login
   type: LoginPayloadOTC
