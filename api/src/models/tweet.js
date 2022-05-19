@@ -1,8 +1,9 @@
+import { composeWithMongoose } from 'graphql-compose-mongoose'
 import { model, Schema } from 'mongoose'
 
-import { ITweet } from '../types/models'
 
-const TweetSchema = new Schema<ITweet>(
+
+const TweetSchema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
@@ -25,6 +26,7 @@ const TweetSchema = new Schema<ITweet>(
   { timestamps: true },
 )
 
-export const TweetModel = model<ITweet>('Tweet', TweetSchema)
+export const TweetModel = model('Tweet', TweetSchema)
+export const TweetTC = composeWithMongoose(TweetModel)
 
 // API: Implement TweetTC here

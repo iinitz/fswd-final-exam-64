@@ -19,9 +19,9 @@ const RegisterPage = () => {
   // WEB: Implement useMutation for registerMutation here
   // WEB: Implement handleFullnameChange, handleUsernameChange and handlePasswordChange here
   const handleSubmit = useCallback(
-    async (e: React.SyntheticEvent) => {
+    async (e) => {
       e.preventDefault()
-      const record: ICreateOneUserInput = {
+      const record = {
         fullname,
         username,
         password,
@@ -33,7 +33,7 @@ const RegisterPage = () => {
           navigate('/login')
         }
       } catch (err) {
-        if ((err as Error).message.startsWith('E11000')) {
+        if ((err).message.startsWith('E11000')) {
           setError(`Duplicate username ${username}`)
         } else {
           setError('Server error')

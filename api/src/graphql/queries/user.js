@@ -8,7 +8,7 @@ export const me = schemaComposer.createResolver({
   name: 'me',
   kind: 'query',
   type: UserTC.getType(),
-  resolve: async ({ context }: ResolverResolveParams<IUser, IApolloContext>) => {
+  resolve: async ({ context }) => {
     if (!context.user) {
       return null
     }
@@ -17,4 +17,5 @@ export const me = schemaComposer.createResolver({
     return user
   },
 })
+export const profile = UserTC.getResolver('findOne')
 // API: Implement resolver profile using findOne from UserTC
