@@ -1,8 +1,8 @@
 # FsWD 64 - Final exam
 
 ## Student
-#### Student ID: 
-#### Name (TH): 
+#### Student ID: 62070077
+#### Name (TH):   นายธนกานต์ บุญมา
 
 ## Demo
 - [Twitter clone](https://fswd64.devnss.com)
