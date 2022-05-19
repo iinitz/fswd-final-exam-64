@@ -22,7 +22,7 @@ const UserSchema = new Schema<IUser>(
       type: String,
       required: true,
       bcrypt: true,
-    },
+    }
   },
   { timestamps: true },
 )

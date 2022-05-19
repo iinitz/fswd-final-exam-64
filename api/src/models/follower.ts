@@ -1,3 +1,4 @@
+import { composeMongoose } from 'graphql-compose-mongoose'
 import { model, Schema } from 'mongoose'
 
 import { IFollower } from '../types/models'
@@ -21,5 +22,5 @@ const FollowerSchema = new Schema<IFollower>(
 )
 
 export const FollowerModel = model<IFollower>('Follower', FollowerSchema)
-
+export const FollowerTC = composeMongoose(FollowerModel)
 // API: Implement FollowerTC here

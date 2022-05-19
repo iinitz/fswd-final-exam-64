@@ -1,26 +1,40 @@
-import { gql } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 import moment from 'moment'
-import { useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useApp } from '../contexts/AppContext'
 import { usePage } from '../contexts/PageContext'
 import { plural } from '../lib/utils'
+// import {
+//   ICreateOneLikeInput, ICreateOneTweetInput, IFilterRemoveOneLikeInput, ITweet,
+// } from '../types'
 import {
-  ICreateOneLikeInput, ICreateOneTweetInput, IFilterRemoveOneLikeInput, ITweet,
+  ICreateOneLikeInput, IFilterRemoveOneLikeInput, ITweet,
 } from '../types'
 
 import { Avatar } from './Avatar'
 import './TweetContent.css'
 
 // WEB: Implement retweet mutation here
-const RETWEET_MUTATION = gql`
-`
+// const RETWEET_MUTATION = gql`
+
+// `
 // WEB: Implement like mutation here
 const LIKE_MUTATION = gql`
+  mutation Like($tweetId: MongoID!){
+    like(tweetId : $tweetId){
+      tweetId
+    }
+  }
 `
 // WEB: Implement unlike mutation here
 const UNLIKE_MUTATION = gql`
+  mutation Unlike($tweetId: MongoID!){
+    unlike(tweetId: $tweetId){
+      message
+    }
+  }
 `
 
 export interface ITweetContentProps {
@@ -30,27 +44,30 @@ export const TweetContent = ({ tweet }: ITweetContentProps) => {
   const { user } = useApp()
   const { refetch } = usePage()
   // WEB: Implement useMutation for retweetMutation, likeMutation, unlikeMutation here
-  const handleRetweet = useCallback(
-    async () => {
-      const record: ICreateOneTweetInput = {
-        retweetId: tweet._id,
-      }
-      try {
-        await retweetMutation({ variables: { record } })
-        await refetch()
-      } catch (err) {
-        console.error(err)
-      }
-    },
-    [refetch, retweetMutation, tweet._id, tweet.text, tweet.user?.username],
-  )
+  // const handleRetweet = useCallback(
+  //   async () => {
+  //     const record: ICreateOneTweetInput = {
+  //       retweetId: tweet._id,
+  //     }
+  //     try {
+  //       await retweetMutation({ variables: { record } })
+  //       await refetch()
+  //     } catch (err) {
+  //       console.error(err)
+  //     }
+  //   },
+  //   [refetch, retweetMutation, tweet._id, tweet.text, tweet.user?.username],
+  // )
+  const handleRetweet = (e : React.SyntheticEvent) => console.log(e)
+  const [likeMutation] = useMutation(LIKE_MUTATION)
+  const [unlikeMutation] = useMutation(UNLIKE_MUTATION)
   const handleLike = useCallback(
     async () => {
       const record: ICreateOneLikeInput = {
-        tweetId: tweet._id,
+        tweetId: tweet._id as string,
       }
       try {
-        await likeMutation({ variables: { record } })
+        await likeMutation({ variables: { ...record } })
         await refetch()
       } catch (err) {
         console.error(err)
@@ -61,10 +78,10 @@ export const TweetContent = ({ tweet }: ITweetContentProps) => {
   const handleUnlike = useCallback(
     async () => {
       const filter: IFilterRemoveOneLikeInput = {
-        tweetId: tweet._id,
+        tweetId: tweet._id as string,
       }
       try {
-        await unlikeMutation({ variables: { filter } })
+        await unlikeMutation({ variables: { ...filter } })
         await refetch()
       } catch (err) {
         console.error(err)

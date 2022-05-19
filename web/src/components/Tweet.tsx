@@ -18,7 +18,8 @@ export const Tweet = ({ tweet }: ITweetProps) => (
       </div>
     )}
     {tweet.retweet ? (
-      <TweetContent tweet={tweet.retweet} />
+      // <TweetContent tweet={tweet.retweet} />
+      <TweetContent tweet={tweet} />
     ) : (
       <TweetContent tweet={tweet} />
     )}

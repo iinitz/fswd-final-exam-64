@@ -37,6 +37,6 @@ const startApolloServer = async () => {
     path: '/graphql',
     cors: { origin: ['http://localhost:3000'], credentials: true },
   })
-  httpServer.listen({ port: process.env.PORT })
+  httpServer.listen({ port: process.env.PORT }, () => console.log(`server started at port ${process.env.PORT}`))
 }
 startApolloServer().catch(console.error)
