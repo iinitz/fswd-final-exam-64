@@ -15,9 +15,52 @@ const REGISTER_MUTATION = gql`
 const RegisterPage = () => {
   const navigate = useNavigate()
   // WEB: Implement fullname, username and password state here
+  const [fullname, setFullname] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   // WEB: Implement useMutation for registerMutation here
   // WEB: Implement handleFullnameChange, handleUsernameChange and handlePasswordChange here
+
+  const handleUsernameChange = useCallback(
+    async (e: React.SyntheticEvent) => {
+      e.preventDefault()
+      try {
+        setError('')
+        setUsername(e.currentTarget.innerHTML)
+      } catch (err) {
+        setError((err as Error).message)
+      }
+    },
+    [username],
+  )
+
+  const handlePasswordChange = useCallback(
+    async (e: React.SyntheticEvent) => {
+      e.preventDefault()
+      try {
+        setError('')
+        setPassword(e.currentTarget.innerHTML)
+      } catch (err) {
+        setError((err as Error).message)
+      }
+    },
+    [password],
+  )
+
+  const handleFullnameChange = useCallback(
+    async (e: React.SyntheticEvent) => {
+      e.preventDefault()
+      try {
+        setError('')
+        setFullname(e.currentTarget.innerHTML)
+      } catch (err) {
+        setError((err as Error).message)
+      }
+    },
+    [fullname],
+  )
+
   const handleSubmit = useCallback(
     async (e: React.SyntheticEvent) => {
       e.preventDefault()
