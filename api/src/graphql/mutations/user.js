@@ -1,4 +1,6 @@
 import { schemaComposer } from 'graphql-compose'
+import { type } from 'os'
+import { UserTC } from '../../models/user'
 
 const LoginPayloadOTC = schemaComposer.createObjectTC({
   name: 'LoginPayload',
@@ -7,6 +9,8 @@ const LoginPayloadOTC = schemaComposer.createObjectTC({
     token: 'String',
   },
 })
+
+
 /*
   API: Implement resolver login
   type: LoginPayloadOTC
@@ -23,3 +27,17 @@ const LoginPayloadOTC = schemaComposer.createObjectTC({
     - if error return error message "Server error"
 */
 // API: Implement resolver register using createOne from UserTC
+export const create = UserTC.addResolver({
+  name: 'createOne',
+  args: {
+    username : String,
+    password : String,
+    fullname : String,
+  },
+  type: UserTC,
+  resolve: async({ source, args }) => {
+    
+  },
+})
+
+/* export const creatUser = UserTC.getResolver('createOne') */

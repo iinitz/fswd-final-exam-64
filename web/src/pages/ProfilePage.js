@@ -4,7 +4,7 @@ import { useCallback, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import stc from 'string-to-color'
 
-import { Avatar, AvatarSize } from '../components/Avatar'
+/* import { Avatar, AvatarSize } from '../components/Avatar' */
 import { AppPageLayout } from '../components/Layout/AppPageLayout'
 import { Loading } from '../components/Loading'
 import { Tweet } from '../components/Tweet'
@@ -73,7 +73,7 @@ const ProfilePage = () => {
   // WEB: Implement useMutation for followMutation and unfollowMutation here
   const handleFollow = useCallback(
     async () => {
-      const record: ICreateOneFollowerInput = {
+      const record = {
         followedId: data?.profile?._id,
       }
       try {
@@ -87,7 +87,7 @@ const ProfilePage = () => {
   )
   const handleUnfollow = useCallback(
     async () => {
-      const filter: IFilterRemoveOneFollowerInput = {
+      const filter = {
         followedId: data?.profile?._id,
       }
       try {
@@ -141,7 +141,7 @@ const ProfilePage = () => {
             </h2>
             <div className="profile-tweet-count"><span data-testid="tweet-count">{data?.profile?.tweetsCount ?? 0}</span> {plural((data?.profile?.tweetsCount ?? 0), 'Tweet')}</div>
             <div className="profile-root">
-              <div className="profile-cover" style={{ backgroundColor: stc(data?.profile?._id as string) }} />
+              <div className="profile-cover" style={{ backgroundColor: stc(data?.profile?._id) }} />
               <div className="profile-avatar">
                 <Avatar username={data?.profile?.username ?? ''} size={AvatarSize.LARGE} />
                 <div className="profile-actions">
@@ -151,7 +151,7 @@ const ProfilePage = () => {
               <div className="profile-info">
                 <h3 className="profile-fullname hilight" data-testid="profile-fullname">{data?.profile?.fullname}</h3>
                 <div className="profile-username" data-testid="profile-username">@{data?.profile?.username}</div>
-                <div className="profile-timestamp" data-testid="profile-timestamp">Joined {moment(data?.profile?.createdAt as string).format('MMMM YYYY')}</div>
+                <div className="profile-timestamp" data-testid="profile-timestamp">Joined {moment(data?.profile?.createdAt).format('MMMM YYYY')}</div>
                 <div className="profile-stat">
                   <div className="profile-following-count"><span className="hilight" data-testid="profile-following-count">{data?.profile?.followingCount}</span> Following</div>
                   <div className="profile-followers-count"><span className="hilight" data-testid="profile-followers-count">{data?.profile?.followersCount}</span> Followers</div>
@@ -160,7 +160,7 @@ const ProfilePage = () => {
             </div>
             <div className="profile-tweets" data-testid="tweets">
               {data?.tweets?.map((tweet) => (
-                <Tweet key={tweet._id as string} tweet={tweet} />
+                <Tweet key={tweet._id} tweet={tweet} />
               ))}
             </div>
           </>

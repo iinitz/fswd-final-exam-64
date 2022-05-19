@@ -4,20 +4,20 @@ import { Link } from 'react-router-dom'
 import stc from 'string-to-color'
 
 import './Avatar.css'
-
+/* 
 export enum AvatarSize {
   SMALL = 16,
   MEDIUM = 48,
   LARGE = 128,
-}
-export interface IAvatarProps {
+} */
+/* export interface IAvatarProps {
   username: string
   size?: AvatarSize
-}
+} */
 const defaultProps = {
   size: AvatarSize.MEDIUM,
 }
-export const Avatar = ({ username, size }: IAvatarProps & typeof defaultProps) => {
+export const Avatar = ({ username, size }) => {
   const avatar = createAvatar(
     style,
     {

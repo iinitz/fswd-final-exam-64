@@ -3,31 +3,33 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { ErrorMessage } from '../components/ErrorMessage'
 import { LandingPageLayout } from '../components/Layout/LandingPageLayout'
-import { useApp } from '../contexts/AppContext'
+/* import { useApp } from '../contexts/AppContext' */
 
-import './LoginPage.css'
+/* import './LoginPage.css' */
 
 const LoginPage = () => {
   const navigate = useNavigate()
-  const { login } = useApp()
+  /* const { login } = useApp() */
   // WEB: Implement username and password state here
+  const [username, setUser] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   // WEB: Implement handleUsernameChange and handlePasswordChange here
   const handleSubmit = useCallback(
-    async (e: React.SyntheticEvent) => {
+    async (e) => {
       e.preventDefault()
       try {
         setError('')
-        await login(username, password)
+        /* await login(username, password) */
         navigate('/feed')
       } catch (err) {
-        setError((err as Error).message)
+        setError((err).message)
       }
     },
-    [login, username, password, navigate],
+    [/* login */, /* username */, /* password */, navigate],
   )
   return (
-    <LandingPageLayout>
+    <div class="container">
       <form className="login-form" onSubmit={handleSubmit}>
         <label htmlFor="username-input">
           Username
@@ -35,7 +37,7 @@ const LoginPage = () => {
             id="username-input"
             type="text"
             value={username}
-            onChange={handleUsernameChange}
+            onChange={(e) => setUser(e.target.value)}
             data-testid="username-input"
           />
         </label>
@@ -45,7 +47,7 @@ const LoginPage = () => {
             id="password-input"
             type="password"
             value={password}
-            onChange={handlePasswordChange}
+            onChange={(e) => setPassword(e.target.value)}
             data-testid="password-input"
           />
         </label>
@@ -62,7 +64,7 @@ const LoginPage = () => {
       <Link to="/register">
         <button className="button-outlined" type="button" data-testid="register-button">Register</button>
       </Link>
-    </LandingPageLayout>
+    </div>
   )
 }
 

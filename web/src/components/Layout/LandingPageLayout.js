@@ -6,10 +6,10 @@ import { Loading } from '../Loading'
 
 import './LandingPageLayout.css'
 
-export interface ILandingPageLayoutProps {
+/* export interface ILandingPageLayoutProps {
   children: React.ReactNode
-}
-export const LandingPageLayout = memo(({ children }: ILandingPageLayoutProps) => {
+} */
+export const LandingPageLayout = memo(({ children }) => {
   const { loading, user } = useApp()
   if (loading) {
     return (
