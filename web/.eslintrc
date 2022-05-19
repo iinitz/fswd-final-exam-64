@@ -1,7 +1,8 @@
 {
   "extends": "iinitz/ts-react",
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "sourceType": "module",
+    "ecmaVersion": 2020
   },
   "rules": {
     "no-console": 0,
