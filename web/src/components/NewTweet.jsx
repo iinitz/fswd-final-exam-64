@@ -4,7 +4,7 @@ import { useCallback } from 'react'
 import { MAX_TWEET_LENGTH } from '../constants'
 import { useApp } from '../contexts/AppContext'
 import { usePage } from '../contexts/PageContext'
-import { ICreateOneTweetInput } from '../types'
+// import { ICreateOneTweetInput } from '../types'
 
 import { Avatar } from './Avatar'
 import './NewTweet.css'
@@ -21,7 +21,7 @@ export const NewTweet = () => {
   // WEB: Implement useCallback for handleTextChange with condition text length <= MAX_TWEET_LENGTH here
   const handleCreateTweet = useCallback(
     async () => {
-      const record: ICreateOneTweetInput = {
+      const record = {
         text,
       }
       try {

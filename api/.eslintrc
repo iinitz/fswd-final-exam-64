@@ -1,8 +1,14 @@
 {
-  "extends": "iinitz/ts-base",
-  "parserOptions": {
-    "project": "./tsconfig.json"
+  // "extends": "iinitz/ts-base",
+  // "parserOptions": {
+  //   "project": "./tsconfig.json"
+  // },
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true
   },
+  "plugins": ["react"],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "rules": {
     "no-console": 0,
     "max-len": 0,
@@ -13,6 +19,9 @@
           "_id"
         ]
       }
-    ]
+    ],
+    "linebreak-style": ["error", "windows"],
+    "global-require": 0,
+    "eslint linebreak-style": [0, "error", "windows"]
   }
 }
