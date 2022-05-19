@@ -30,7 +30,9 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   // WEB: Implement useMutation for registerMutation here
+  const [registerMutation] = useMutation(REGISTER_MUTATION)
   // WEB: Implement handleFullnameChange, handleUsernameChange and handlePasswordChange here
+
   const handleSubmit = useCallback(
     async (e: React.SyntheticEvent) => {
       e.preventDefault()
