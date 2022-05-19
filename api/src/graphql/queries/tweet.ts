@@ -26,6 +26,7 @@ export const tweets = schemaComposer.createResolver({
     return records
   },
 })
+
 export const feed = schemaComposer.createResolver({
   name: 'feed',
   kind: 'query',

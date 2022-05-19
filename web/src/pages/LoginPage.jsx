@@ -11,21 +11,32 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const { login } = useApp()
   // WEB: Implement username and password state here
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   // WEB: Implement handleUsernameChange and handlePasswordChange here
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value)
+  }
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value)
+  }
+
   const handleSubmit = useCallback(
-    async (e: React.SyntheticEvent) => {
+    async (e) => {
       e.preventDefault()
       try {
         setError('')
         await login(username, password)
         navigate('/feed')
       } catch (err) {
-        setError((err as Error).message)
+        setError((err).message)
       }
     },
     [login, username, password, navigate],
   )
+  
   return (
     <LandingPageLayout>
       <form className="login-form" onSubmit={handleSubmit}>
@@ -35,7 +46,7 @@ const LoginPage = () => {
             id="username-input"
             type="text"
             value={username}
-            onChange={handleUsernameChange}
+            onChange={(e) => handleUsernameChange(e)}
             data-testid="username-input"
           />
         </label>
@@ -45,7 +56,7 @@ const LoginPage = () => {
             id="password-input"
             type="password"
             value={password}
-            onChange={handlePasswordChange}
+            onChange={(e) => handlePasswordChange(e)}
             data-testid="password-input"
           />
         </label>
