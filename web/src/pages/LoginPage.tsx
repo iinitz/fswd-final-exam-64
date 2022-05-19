@@ -11,8 +11,19 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const { login } = useApp()
   // WEB: Implement username and password state here
-  const [error, setError] = useState('')
+  const [username, setUsername] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [error, setError] = useState<string>('')
+
   // WEB: Implement handleUsernameChange and handlePasswordChange here
+  function handleUsernameChange(e: string) {
+    setUsername(e)
+  }
+
+  function handlePasswordChange(e: string) {
+    setPassword(e)
+  }
+
   const handleSubmit = useCallback(
     async (e: React.SyntheticEvent) => {
       e.preventDefault()
@@ -28,14 +39,14 @@ const LoginPage = () => {
   )
   return (
     <LandingPageLayout>
-      <form className="login-form" onSubmit={handleSubmit}>
+      <form className="login-form" onSubmit={() => handleSubmit}>
         <label htmlFor="username-input">
           Username
           <input
             id="username-input"
             type="text"
             value={username}
-            onChange={handleUsernameChange}
+            onChange={e => handleUsernameChange(e.target.value)}
             data-testid="username-input"
           />
         </label>
@@ -45,7 +56,7 @@ const LoginPage = () => {
             id="password-input"
             type="password"
             value={password}
-            onChange={handlePasswordChange}
+            onChange={e => handlePasswordChange(e.target.value)}
             data-testid="password-input"
           />
         </label>

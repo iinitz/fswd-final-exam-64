@@ -15,9 +15,22 @@ const REGISTER_MUTATION = gql`
 const RegisterPage = () => {
   const navigate = useNavigate()
   // WEB: Implement fullname, username and password state here
+  const [fullname, setFullname] = useState<string>()
+  const [username, setusername] = useState<string>()
+  const [password, setPassword] = useState<string>()
   const [error, setError] = useState('')
   // WEB: Implement useMutation for registerMutation here
   // WEB: Implement handleFullnameChange, handleUsernameChange and handlePasswordChange here
+  const handleFullnameChange = (e: string) => {
+    setFullname(e)
+  }
+  const handleUsernameChange = (e: string) => {
+    setusername(e)
+  }
+  const handlePasswordChange = (e: string) => {
+    setPassword(e)
+  }
+
   const handleSubmit = useCallback(
     async (e: React.SyntheticEvent) => {
       e.preventDefault()
@@ -51,7 +64,7 @@ const RegisterPage = () => {
             id="fullname-input"
             type="text"
             value={fullname}
-            onChange={handleFullnameChange}
+            onChange={e => handleFullnameChange(e.target.value)}
             data-testid="fullname-input"
           />
         </label>
@@ -61,7 +74,7 @@ const RegisterPage = () => {
             id="username-input"
             type="text"
             value={username}
-            onChange={handleUsernameChange}
+            onChange={e => handleUsernameChange(e.target.value)}
             data-testid="username-input"
           />
         </label>
@@ -71,7 +84,7 @@ const RegisterPage = () => {
             id="password-input"
             type="password"
             value={password}
-            onChange={handlePasswordChange}
+            onChange={e => handlePasswordChange(e.target.value)}
             data-testid="password-input"
           />
         </label>

@@ -16,6 +16,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(cors({ origin: ['http://localhost:3000'], credentials: true }))
 
+console.log(process.env.MONGO_DB)
+
 const startApolloServer = async () => {
   const httpServer = createServer(app)
   const apolloServer = new ApolloServer({
@@ -37,6 +39,9 @@ const startApolloServer = async () => {
     path: '/graphql',
     cors: { origin: ['http://localhost:3000'], credentials: true },
   })
+
+
   httpServer.listen({ port: process.env.PORT })
 }
+
 startApolloServer().catch(console.error)
