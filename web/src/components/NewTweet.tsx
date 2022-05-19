@@ -39,7 +39,7 @@ export const NewTweet = () => {
       }
       try {
         const { data: createTweetData } = await createTweetMutation({ variables: { ...record } })
-        if (createTweetData?.createTweet?.recordId) {
+        if (createTweetData?.createTweet?.text) {
           setText('')
           await refetch()
         }
