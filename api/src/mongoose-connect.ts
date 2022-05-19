@@ -6,5 +6,5 @@ const options = {
   user: process.env.MONGO_USER,
   pass: process.env.MONGO_PASS,
 }
-
+//mongodb+srv://@cluster1.tbssg.mongodb.net
 export default mongoose.connect(uri, options)
