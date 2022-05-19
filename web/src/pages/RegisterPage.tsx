@@ -22,10 +22,10 @@ const RegisterPage = () => {
   // WEB: Implement useMutation for registerMutation here
   const [registerMutation, { data, loading }] = useMutation(REGISTER_MUTATION);
   // WEB: Implement handleFullnameChange, handleUsernameChange and handlePasswordChange here
-  function handleFullnameChange(event) {
+  function handleFullnameChange(string event) {
     setFullname(event.target.value);
   }
-  function handleUsernameChange(event) {
+  function handleUsernameChange(e) {
     setUsername(event.target.value);
   }
   function handlePasswordChange(event) {
