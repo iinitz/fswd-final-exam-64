@@ -1,8 +1,8 @@
 # FsWD 64 - Final exam
 
 ## Student
-#### Student ID: 
-#### Name (TH): 
+#### Student ID: 62070134
+#### Name (TH): พลัฏฐ์ วงศ์สิทธิพรรุ่ง
 
 ## Demo
 - [Twitter clone](https://fswd64.devnss.com)
