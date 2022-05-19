@@ -1,5 +1,5 @@
-import { gql } from '@apollo/client'
-import { useCallback } from 'react'
+import { gql, useMutation } from '@apollo/client'
+import { useCallback, useState } from 'react'
 
 import { MAX_TWEET_LENGTH } from '../constants'
 import { useApp } from '../contexts/AppContext'
@@ -11,13 +11,21 @@ import './NewTweet.css'
 
 // WEB: Implement createTweet mutation here
 const CREATE_TWEET_MUTATION = gql`
-`
+# Increments a back-end counter and gets its resulting value
 
+mutation IncrementCounter {
+
+  currentValue
+
+}
+`
 export const NewTweet = () => {
   const { user } = useApp()
   const { refetch } = usePage()
   // WEB: Implement text state here
+  const [text, setText] = useState('')
   // WEB: Implement useMutation for createTweetMutation here
+  const [createTweetMutation] = useMutation<Response, unknown, string>(CREATE_TWEET_MUTATION)
   // WEB: Implement useCallback for handleTextChange with condition text length <= MAX_TWEET_LENGTH here
   const handleCreateTweet = useCallback(
     async () => {

@@ -7,6 +7,7 @@ import { UserModel } from '../models/user'
 import '../mongoose-connect'
 import { ITweet, IUser } from '../types/models'
 
+
 const USERS: AnyKeys<IUser>[] = [
   {
     fullname: 'Alice',
