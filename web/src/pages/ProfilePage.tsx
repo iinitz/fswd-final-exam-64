@@ -61,16 +61,16 @@ query ($username: String!) {
 `
 // WEB: Implement follow mutation here
 const FOLLOW_MUTATION = gql`
-mutation ($followedId: String!) {
-  follow (followedId: $followedId) {
+mutation ($record: CreateOneFollowerInput!) {
+  follow (record: $record) {
     recordId
   }
 }
 `
 // WEB: Implement unfollow mutation here
 const UNFOLLOW_MUTATION = gql`
-mutation ($followedId: String!) {
-  unfollow (followedId: $followedId) {
+mutation ($filter: FilterRemoveOneFollowerInput!) {
+  unfollow (filter: $filter) {
     recordId
   }
 }
