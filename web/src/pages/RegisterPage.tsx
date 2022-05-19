@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 import { useCallback, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -10,13 +10,22 @@ import './RegisterPage.css'
 
 // WEB: Implement register mutation here
 const REGISTER_MUTATION = gql`
+mutation ($record: CreateOneUserInput!) {
+  createUser (record: $record) {
+    recordId
+  }
+}
 `
 
 const RegisterPage = () => {
   const navigate = useNavigate()
   // WEB: Implement fullname, username and password state here
+  const [fullname, setFullName] = useState('')
+  const [username, setUserName] = useState('')
+  const [password, setPassWord] = useState('') 
   const [error, setError] = useState('')
   // WEB: Implement useMutation for registerMutation here
+  const [registerMutation] = useMutation(REGISTER_MUTATION)
   // WEB: Implement handleFullnameChange, handleUsernameChange and handlePasswordChange here
   const handleSubmit = useCallback(
     async (e: React.SyntheticEvent) => {
@@ -41,6 +50,45 @@ const RegisterPage = () => {
       }
     },
     [fullname, navigate, password, registerMutation, username],
+  )
+  
+  const handleFullnameChange = useCallback(
+    async (e: React.SyntheticEvent) => {
+      e.preventDefault()
+      try {
+        setError('')
+        setFullName(fullname)
+      } catch (err) {
+        setError((err as Error).message)
+      }
+    },
+    [fullname]
+  )
+
+  const handleUsernameChange = useCallback(
+    async (e: React.SyntheticEvent) => {
+      e.preventDefault()
+      try {
+        setError('')
+        setUserName(username)
+      } catch (err) {
+        setError((err as Error).message)
+      }
+    },
+    [username]
+  )
+
+  const handlePasswordChange = useCallback(
+    async (e: React.SyntheticEvent) => {
+      e.preventDefault()
+      try {
+        setError('')
+        setPassWord(password)
+      } catch (err) {
+        setError((err as Error).message)
+      }
+    },
+    [password]
   )
   return (
     <LandingPageLayout>

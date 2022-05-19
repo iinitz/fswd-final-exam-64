@@ -14,11 +14,17 @@ const App = () => (
   <Suspense fallback={<Loading />}>
     <Routes>
       {/* WEB: Implement route /login element LoginPage here */}
+      <LoginPage path="/login"/>
       {/* WEB: Implement route /register element RegisterPage here */}
+      <RegisterPage path="/register"/>
       {/* WEB: Implement route /feed element FeedPage here */}
+      <FeedPage path="/feed"/>
       {/* WEB: Implement route /logout element LogoutPage here */}
+      <LogoutPage path="/logout"/>
       {/* WEB: Implement route / element HomePage here */}
+      <HomePage path="/"/>
       {/* WEB: Implement route /:username element ProfilePage here */}
+      <ProfilePage path="/:username"/>
     </Routes>
   </Suspense>
 )
