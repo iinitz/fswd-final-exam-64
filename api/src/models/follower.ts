@@ -23,3 +23,21 @@ const FollowerSchema = new Schema<IFollower>(
 export const FollowerModel = model<IFollower>('Follower', FollowerSchema)
 
 // API: Implement FollowerTC here
+const FollowerTC = new Schema<IFollower>(
+  {
+    userId:{
+      type: Schema.Types.ObjectId,
+      ref: 'User' ,
+      required: true,
+      index: true,
+    },
+    followedId:{
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+      index: true,
+    }
+  }
+
+)
+export const FollowerTc = model<IFollower>('Follower', FollowerTC)

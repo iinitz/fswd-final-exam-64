@@ -35,7 +35,7 @@ const startApolloServer = async () => {
   apolloServer.applyMiddleware({
     app,
     path: '/graphql',
-    cors: { origin: ['http://localhost:3000'], credentials: true },
+    cors: { origin: ['http://localhost:3001'], credentials: true },
   })
   httpServer.listen({ port: process.env.PORT })
 }
