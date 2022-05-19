@@ -4,6 +4,9 @@
 #### Student ID: 62070215
 #### Name (TH): อคิราภ์ สีแสนยง
 
+![image](https://user-images.githubusercontent.com/54892411/169219898-5906d3ae-1141-47f0-a1e8-8a773ba19d69.png)
+
+
 ## Demo
 - [Twitter clone](https://fswd64.devnss.com)
 - [GraphQL playground](https://api.fswd64.devnss.com/graphql)
