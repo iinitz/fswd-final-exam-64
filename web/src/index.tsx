@@ -7,16 +7,26 @@ import { AppProvider } from './contexts/AppContext'
 import './index.css'
 
 // WEB: Implement apoloClient using uri from process.env.REACT_APP_GRAPHQL_URI here
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+
+const client = new ApolloClient({
+  uri: "http://localhost:3001/graphql",
+  cache: new InMemoryCache(),
+  
+});
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 )
 root.render(
   <React.StrictMode>
     {/* WEB: Implement ApolloProvider and BrowserRouter here */}
+    <ApolloProvider client={client}>
     <CookiesProvider>
       <AppProvider>
         <App />
       </AppProvider>
     </CookiesProvider>
+    </ApolloProvider>
   </React.StrictMode>,
 )

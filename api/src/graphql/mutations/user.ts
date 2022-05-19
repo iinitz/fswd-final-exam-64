@@ -1,5 +1,5 @@
 import { schemaComposer } from 'graphql-compose'
-
+import { UserModel, UserTC } from '../../models/user';
 const LoginPayloadOTC = schemaComposer.createObjectTC({
   name: 'LoginPayload',
   fields: {
@@ -22,4 +22,43 @@ const LoginPayloadOTC = schemaComposer.createObjectTC({
     - return token and message "Login success"
     - if error return error message "Server error"
 */
+// export const login = schemaComposer.createResolver({
+//   name: 'login',
+//   kind: 'mutation',
+//   type: LoginPayloadOTC,
+//   args: {
+//     username: 'String!',
+//     password: 'String!',
+//   },
+//   resolve: async ({ args }) => {
+//     const { username, password } = args
+//     const user = await UserModel.findOne({ username: username.toLowerCase() })
+//     if (!user) {
+//       // throw new UserInputError('Username not found')
+//       return {
+//         status: 'failed',
+//         message: 'Username not found',
+//         token: null,
+//       }
+//     }
+//     const validPassword = await user.verifyPassword(password)
+//     if (!validPassword) {
+//       // throw new AuthenticationError('Password incorrect')
+//       return {
+//         status: 'failed',
+//         message: 'Password incorrect',
+//         token: null,
+//       }
+//     }
+//     const token = "fffsd"
+//     return {
+//       status: 'success',
+//       message: 'Login success',
+//       token,
+//     }
+//   },
+// })
 // API: Implement resolver register using createOne from UserTC
+
+
+export const createUser = UserTC.mongooseResolvers.createOne();

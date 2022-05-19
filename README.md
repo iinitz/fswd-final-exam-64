@@ -2,7 +2,7 @@
 
 ## Student
 #### Student ID: 62070148
-#### Name (TH): ภารุพงศ์ ทองใบน้อย
+#### Name (TH): ภาณุพงศ์ ทองใบน้อย
 
 ## Demo
 - [Twitter clone](https://fswd64.devnss.com)
