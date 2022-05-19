@@ -1,9 +1,10 @@
 import { Schema } from 'mongoose'
+import { LikeTC } from '../../models/like'
 
 import { TweetModel, TweetTC } from '../../models/tweet'
 import { UserTC } from '../../models/user'
 import { IApolloContext } from '../../types'
-import { ITweet } from '../../types/models'
+import { ITweet,ILike } from '../../types/models'
 
 TweetTC.addRelation(
   'user',
@@ -16,8 +17,19 @@ TweetTC.addRelation(
   },
 )
 // API: Implement retweet relation here
+TweetTC.addRelation(
+  "retweet",
+  {
+    resolver: () => TweetTC.mongooseResolvers.findById(),
+    prepareArgs: {
+      _id: (source: ITweet) => source.userId,
+    },
+    projection: { userId: 1 },
+  },
+)
 // API: Implement retweetsCount relation here
 // API: Implement likesCount relation here
+
 TweetTC.addFields({
   retweeted: {
     type: 'Boolean',
