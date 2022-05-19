@@ -11,14 +11,39 @@ import './NewTweet.css'
 
 // WEB: Implement createTweet mutation here
 const CREATE_TWEET_MUTATION = gql`
-`
+mutation($record: CreateOneTweetInput!){
+  createTweet(record: $record)
+  {
+    recordId
+  }
+}`
 
 export const NewTweet = () => {
   const { user } = useApp()
   const { refetch } = usePage()
   // WEB: Implement text state here
+  const [text, setText] = useState('')
   // WEB: Implement useMutation for createTweetMutation here
+  const [createTweetMutation] = useMutation(CREATE_TWEET_MUTATION)
   // WEB: Implement useCallback for handleTextChange with condition text length <= MAX_TWEET_LENGTH here
+  const handleTextChange = useCallback(
+    async (e: React.SyntheticEvent) => {
+      e.preventDefault()
+      const record: ICreateOneTweetInput = {
+        user,
+        text,
+      }
+      try {
+        if (text.length <= MAX_TWEET_LENGTH) {
+          await createTweetMutation({ variables: { record } })
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    [createTweetMutation, user, text],
+  )
+
   const handleCreateTweet = useCallback(
     async () => {
       const record: ICreateOneTweetInput = {
@@ -47,6 +72,8 @@ export const NewTweet = () => {
           <textarea
             data-testid="new-tweet-input"
             placeholder="What's happening?"
+            value={text}
+            onChange={handleTextChange}
           />
         </div>
         <div className="new-tweet-actions">
@@ -55,6 +82,7 @@ export const NewTweet = () => {
           <button
             type="button"
             data-testid="new-tweet-button"
+            onClick={text.length == 0 ? console.log('text length = 0') : handleCreateTweet}
           >
             Tweet
           </button>

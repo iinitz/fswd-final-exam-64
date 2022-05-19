@@ -61,16 +61,30 @@ query ($username: String!) {
 `
 // WEB: Implement follow mutation here
 const FOLLOW_MUTATION = gql`
-`
+mutation($record: CreateOneFollowInput!){
+  follow(record: $record)
+  {
+    recordId
+  }
+}`
 // WEB: Implement unfollow mutation here
 const UNFOLLOW_MUTATION = gql`
-`
+mutation($id: MongoID!){
+  deleteFollowId(_id: $id)
+  {
+    recordId
+  }
+}`
 
 const ProfilePage = () => {
   const { user } = useApp()
   const { username } = useParams()
   // WEB: Implement useQuery for profile query (destruct { data, loading, refetch } from useQuery) with options fetchPolicy: 'network-only' here
+  const { data, loading, refetch } = useQuery(PROFILE_QUERY)
   // WEB: Implement useMutation for followMutation and unfollowMutation here
+  const [followMutation] = useMutation(FOLLOW_MUTATION)
+  const [unfollowMutation] = useMutation(UNFOLLOW_MUTATION)
+
   const handleFollow = useCallback(
     async () => {
       const record: ICreateOneFollowerInput = {
