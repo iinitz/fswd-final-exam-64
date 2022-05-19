@@ -7,6 +7,16 @@ import { IApolloContext } from '../../types'
 import { IUser } from '../../types/models'
 
 // API: Implement followingCount relation here
+// UserTC.addRelation(
+//     'followingCount',
+//     {
+//         resolver: () => UserTC.mongooseResolvers.count(),
+//         prepareArgs: {
+
+//         }
+//     }
+// )
+
 // API: Implement followersCount relation here
 UserTC.addRelation(
   'tweetsCount',

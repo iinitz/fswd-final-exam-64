@@ -11,8 +11,22 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const { login } = useApp()
   // WEB: Implement username and password state here
+  const [username, setUserName] = useState('')
+  const [password, setPassword] = useState('')
+
   const [error, setError] = useState('')
   // WEB: Implement handleUsernameChange and handlePasswordChange here
+
+  //   const handleUsernameChange = useCallback(
+  //     async (e: React.SyntheticEvent) => {
+  //       e.preventDefault()
+  //     //   setUserName(e.target.value)
+  //     },
+  //   )
+  //   function handleUsernameChange(e) {
+
+  //   }
+
   const handleSubmit = useCallback(
     async (e: React.SyntheticEvent) => {
       e.preventDefault()
@@ -35,7 +49,8 @@ const LoginPage = () => {
             id="username-input"
             type="text"
             value={username}
-            onChange={handleUsernameChange}
+            onChange={(e) => setUserName(e.target.value)}
+            // onChange={handleUsernameChange(e)}
             data-testid="username-input"
           />
         </label>
@@ -45,7 +60,8 @@ const LoginPage = () => {
             id="password-input"
             type="password"
             value={password}
-            onChange={handlePasswordChange}
+            onChange={(e) => setPassword(e.target.value)}
+            // onChange={handlePasswordChange(e)}
             data-testid="password-input"
           />
         </label>
