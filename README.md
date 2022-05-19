@@ -1,8 +1,8 @@
 # FsWD 64 - Final exam
 
 ## Student
-#### Student ID: 
-#### Name (TH): 
+#### Student ID: 62070072
+#### Name (TH): ทวีวัฒน์ ศรีเมฆ
 
 ## Demo
 - [Twitter clone](https://fswd64.devnss.com)
