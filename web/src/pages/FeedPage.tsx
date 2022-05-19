@@ -35,6 +35,7 @@ query {
     likesCount
     retweeted
     liked
+    createdAt
   }
 }
 `
