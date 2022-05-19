@@ -12,7 +12,7 @@ interface ITweetsArgs {
 export const tweets = schemaComposer.createResolver({
   name: 'tweets',
   kind: 'query',
-  type: TweetTC.mongooseResolvers.findMany().getType(),
+  type: TweetTC.mongooseResolvers.findByIds().getType(),
   args: {
     username: 'String!',
   },
