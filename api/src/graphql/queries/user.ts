@@ -18,3 +18,20 @@ export const me = schemaComposer.createResolver({
   },
 })
 // API: Implement resolver profile using findOne from UserTC
+export const user = schemaComposer.createResolver({
+  name: 'tweets',
+  kind: 'query',
+  type: UserTC.mongooseResolvers.findOne().getType(),
+  args: {
+    username: 'String!',
+  },
+  resolve: async ({ args }: ResolverResolveParams<IUser, IApolloContext>) => {
+    const { username } = args
+    const user = await UserModel.findOne({ username })
+    if (!user) {
+      return []
+    }
+    const records = await UserModel.find({ userId: user._id as string }).sort({ createdAt: -1 }).lean()
+    return records
+  },
+})
