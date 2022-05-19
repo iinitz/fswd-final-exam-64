@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 import moment from 'moment'
 import { useCallback } from 'react'
 import { Link } from 'react-router-dom'
@@ -30,6 +30,10 @@ export const TweetContent = ({ tweet }: ITweetContentProps) => {
   const { user } = useApp()
   const { refetch } = usePage()
   // WEB: Implement useMutation for retweetMutation, likeMutation, unlikeMutation here
+  const [retweetMutation] = useMutation(RETWEET_MUTATION) 
+  const [likeMutation] = useMutation(LIKE_MUTATION)
+  const [unlikeMutation] = useMutation(UNLIKE_MUTATION)
+
   const handleRetweet = useCallback(
     async () => {
       const record: ICreateOneTweetInput = {

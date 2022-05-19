@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 import { useCallback, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -10,13 +10,30 @@ import './RegisterPage.css'
 
 // WEB: Implement register mutation here
 const REGISTER_MUTATION = gql`
+  mutation {
+    register(record:{
+      fullname: $fullname, 
+      username: $username, 
+      password: $password})
+    {
+      recordId 
+      record {
+        fullname 
+        username
+      }
+    }
+}
 `
 
 const RegisterPage = () => {
   const navigate = useNavigate()
   // WEB: Implement fullname, username and password state here
+  const [username, setUserName] = useState('')
+  const [password, setPassword] = useState('')
+  const [fullname, setFullName] = useState('')
   const [error, setError] = useState('')
   // WEB: Implement useMutation for registerMutation here
+  const [registerMutation] = useMutation(REGISTER_MUTATION)
   // WEB: Implement handleFullnameChange, handleUsernameChange and handlePasswordChange here
   const handleSubmit = useCallback(
     async (e: React.SyntheticEvent) => {
@@ -51,7 +68,7 @@ const RegisterPage = () => {
             id="fullname-input"
             type="text"
             value={fullname}
-            onChange={handleFullnameChange}
+            onChange={(e) => setFullName(e.target.value)}
             data-testid="fullname-input"
           />
         </label>
@@ -61,7 +78,7 @@ const RegisterPage = () => {
             id="username-input"
             type="text"
             value={username}
-            onChange={handleUsernameChange}
+            onChange={(e) => setUserName(e.target.value)}
             data-testid="username-input"
           />
         </label>
@@ -71,7 +88,7 @@ const RegisterPage = () => {
             id="password-input"
             type="password"
             value={password}
-            onChange={handlePasswordChange}
+            onChange={(e) => setPassword(e.target.value)}
             data-testid="password-input"
           />
         </label>
