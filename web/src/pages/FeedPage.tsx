@@ -1,4 +1,5 @@
-import { gql } from '@apollo/client'
+/* eslint-disable linebreak-style */
+import { gql, useQuery } from '@apollo/client'
 import { Navigate } from 'react-router-dom'
 
 import { AppPageLayout } from '../components/Layout/AppPageLayout'
@@ -12,11 +13,30 @@ import './FeedPage.css'
 
 // WEB: Implement feed query here
 const FEED_QUERY = gql`
+query {
+  feed {
+		userId
+    text
+    retweetId
+    _id
+    updatedAt
+    createdAt
+    user
+    retweet
+    retweetsCount
+    likesCount
+    retweeted
+    liked
+  }
+}
 `
 
 const FeedPage = () => {
   const { user } = useApp()
   // WEB: Implement useQuery for feed query (destruct { data, loading, refetch } from useQuery) with options fetchPolicy: 'network-only' here
+  const {
+    loading, error, data, refetch,
+  } = useQuery(FEED_QUERY)
   if (!user) {
     return (
       <Navigate to="/login" />
@@ -31,7 +51,7 @@ const FeedPage = () => {
           <Loading />
         ) : (
           <div className="feed-tweets" data-testid="tweets">
-            {data?.feed?.map((tweet) => (
+            {data?.feed?.map((tweet:any) => (
               <Tweet key={tweet._id as string} tweet={tweet} />
             ))}
           </div>

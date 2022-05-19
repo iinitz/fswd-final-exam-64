@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import './ErrorMessage.css'
 
 export interface IErrorMessageProps {

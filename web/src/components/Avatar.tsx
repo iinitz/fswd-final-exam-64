@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { createAvatar } from '@dicebear/avatars'
 import * as style from '@dicebear/avatars-bottts-sprites'
 import { Link } from 'react-router-dom'

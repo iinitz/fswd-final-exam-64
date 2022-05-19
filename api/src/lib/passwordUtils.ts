@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import bcrypt from 'bcrypt'
 
 import { IUser } from '../types/models'

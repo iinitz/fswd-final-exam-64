@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { Request } from 'express'
 import { JwtPayload, sign, verify } from 'jsonwebtoken'
 

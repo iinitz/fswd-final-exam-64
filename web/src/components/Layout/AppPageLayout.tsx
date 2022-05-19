@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { memo } from 'react'
 import { NavLink } from 'react-router-dom'
 

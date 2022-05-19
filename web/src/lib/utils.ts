@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 export const plural = (n: number, text: string) => {
   if (n === 0 || n === 1) {
     return text
