@@ -1,4 +1,5 @@
-import { gql } from '@apollo/client'
+/* eslint-disable */
+import { gql, useQuery, useMutation } from '@apollo/client'
 import moment from 'moment'
 import { useCallback, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
@@ -12,14 +13,14 @@ import { useApp } from '../contexts/AppContext'
 import { PageProvider } from '../contexts/PageContext'
 import { plural } from '../lib/utils'
 import {
-  ICreateOneFollowerInput, IFilterRemoveOneFollowerInput,
+  ICreateOneFollowerInput, IFilterRemoveOneFollowerInput, ITweet,
 } from '../types'
 
 import './ProfilePage.css'
 
 const PROFILE_QUERY = gql`
 query ($username: String!) {
-  profile (filter: { username: $username }) {
+  profile (username: $username ) {
     _id
     fullname
     username
@@ -61,14 +62,30 @@ query ($username: String!) {
 `
 // WEB: Implement follow mutation here
 const FOLLOW_MUTATION = gql`
+  mutation Followed($record : CreateOneFollowerInput!){
+    follow(record : $record){
+      recordId
+    }
+  }
 `
 // WEB: Implement unfollow mutation here
 const UNFOLLOW_MUTATION = gql`
+  mutation Unfollowed($filter : RemoveOneFollowerPayload!){
+    unfollow(filter: $filter){
+      recordId
+    }
+  }
 `
 
 const ProfilePage = () => {
   const { user } = useApp()
   const { username } = useParams()
+  const { data, loading, refetch } = useQuery(PROFILE_QUERY, {
+    fetchPolicy: 'network-only',
+    variables: { username }
+  })
+  const [followMutation] = useMutation(FOLLOW_MUTATION)
+  const [unfollowMutation] = useMutation(UNFOLLOW_MUTATION)
   // WEB: Implement useQuery for profile query (destruct { data, loading, refetch } from useQuery) with options fetchPolicy: 'network-only' here
   // WEB: Implement useMutation for followMutation and unfollowMutation here
   const handleFollow = useCallback(
@@ -159,7 +176,7 @@ const ProfilePage = () => {
               </div>
             </div>
             <div className="profile-tweets" data-testid="tweets">
-              {data?.tweets?.map((tweet) => (
+              {data?.tweets?.map((tweet : ITweet) => (
                 <Tweet key={tweet._id as string} tweet={tweet} />
               ))}
             </div>

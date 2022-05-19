@@ -9,6 +9,31 @@ import { IUser } from '../../types/models'
 // API: Implement followingCount relation here
 // API: Implement followersCount relation here
 UserTC.addRelation(
+  'followingCount',
+  {
+    type:'',
+    resolver: () => UserTC.mongooseResolvers.count(),
+    projection: { _id : true},
+    prepareArgs: {
+      filter: (source: IUser) => ({
+        userId: source._id as Schema.Types.ObjectId,
+      }),
+    },
+  },
+)
+UserTC.addRelation(
+  'followersCount',
+  {
+    resolver: () => UserTC.mongooseResolvers.count(),
+    projection: { _id : true},
+    prepareArgs: {
+      filter: (source: IUser) => ({
+        userId: source._id as Schema.Types.ObjectId,
+      }),
+    },
+  },
+)
+UserTC.addRelation(
   'tweetsCount',
   {
     resolver: () => TweetTC.mongooseResolvers.count(),
