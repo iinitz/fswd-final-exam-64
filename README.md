@@ -1,8 +1,8 @@
 # FsWD 64 - Final exam
 
 ## Student
-#### Student ID: 
-#### Name (TH): 
+#### Student ID: 62070096
+#### Name (TH): ธีรภัทร์ บุญช่วยแล้ว
 
 ## Demo
 - [Twitter clone](https://fswd64.devnss.com)

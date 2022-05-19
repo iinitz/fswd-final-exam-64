@@ -11,7 +11,7 @@ import { IUser } from '../../types/models'
 UserTC.addRelation(
   'tweetsCount',
   {
-    resolver: () => TweetTC.mongooseResolvers.count(),
+    resolver: () => TweetTC.getResolver('count'),
     prepareArgs: {
       filter: (source: IUser) => ({
         userId: source._id as Schema.Types.ObjectId,

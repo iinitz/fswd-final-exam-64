@@ -1,7 +1,6 @@
 import bcrypt from 'bcrypt'
 
-import { IUser } from '../types/models'
-
+import {IUser} from "../types/models"
 export async function preSaveHook(this: IUser, next: (err?: NativeError) => void) {
   if (!this.isModified('password')) {
     return next()
