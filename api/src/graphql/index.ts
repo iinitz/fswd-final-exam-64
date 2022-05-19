@@ -2,7 +2,7 @@ import { schemaComposer } from 'graphql-compose'
 
 import * as mutationFields from './mutations'
 import * as queryFields from './queries'
-import './relations'
+// import './relations'
 
 schemaComposer.Query.addFields(queryFields)
 schemaComposer.Mutation.addFields(mutationFields)
