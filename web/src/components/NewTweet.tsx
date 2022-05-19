@@ -26,7 +26,7 @@ export const NewTweet = () => {
   const handleTextChange = useCallback(
     async (e: React.FormEvent<HTMLInputElement>) => {
       if (e.currentTarget.value.length <= MAX_TWEET_LENGTH) {
-        setText.(e.currentTarget.value)
+        setText(e.currentTarget.value)
       }
     },
     [],
