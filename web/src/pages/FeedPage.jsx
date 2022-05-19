@@ -12,11 +12,26 @@ import './FeedPage.css'
 
 // WEB: Implement feed query here
 const FEED_QUERY = gql`
+    query ($user: String!){
+      feed (filter: { username: $user }){
+        _id
+        text
+      }
+    }
 `
 
 const FeedPage = () => {
   const { user } = useApp()
   // WEB: Implement useQuery for feed query (destruct { data, loading, refetch } from useQuery) with options fetchPolicy: 'network-only' here
+  const { data, loading, refetch } = useQuery(
+    FEED_QUERY,
+    {
+      variables: {
+        user: user,
+      },
+      fetchPolicy: 'network-only',
+    },
+  )
   if (!user) {
     return (
       <Navigate to="/login" />
@@ -32,7 +47,7 @@ const FeedPage = () => {
         ) : (
           <div className="feed-tweets" data-testid="tweets">
             {data?.feed?.map((tweet) => (
-              <Tweet key={tweet._id as string} tweet={tweet} />
+              <Tweet key={tweet._id} tweet={tweet} />
             ))}
           </div>
         )}
