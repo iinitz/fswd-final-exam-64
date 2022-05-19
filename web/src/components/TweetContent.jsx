@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 import moment from 'moment'
 import { useCallback } from 'react'
 import { Link } from 'react-router-dom'
@@ -6,9 +6,6 @@ import { Link } from 'react-router-dom'
 import { useApp } from '../contexts/AppContext'
 import { usePage } from '../contexts/PageContext'
 import { plural } from '../lib/utils'
-import {
-  ICreateOneLikeInput, ICreateOneTweetInput, IFilterRemoveOneLikeInput, ITweet,
-} from '../types'
 
 import { Avatar } from './Avatar'
 import './TweetContent.css'
@@ -18,21 +15,35 @@ const RETWEET_MUTATION = gql`
 `
 // WEB: Implement like mutation here
 const LIKE_MUTATION = gql`
+  mutation ($record: CreateOneLikeInput!) {
+    like (record: $record) {
+      record {
+        userId
+      }
+    }
+  }
 `
 // WEB: Implement unlike mutation here
 const UNLIKE_MUTATION = gql`
+  mutation ($filter: FilterRemoveOneLikeInput!) {
+    unlike (filter: $filter) {
+      record {
+        userId
+      }
+    }
+  }
 `
 
-export interface ITweetContentProps {
-  tweet: ITweet
-}
-export const TweetContent = ({ tweet }: ITweetContentProps) => {
+export const TweetContent = ({ tweet }) => {
   const { user } = useApp()
   const { refetch } = usePage()
   // WEB: Implement useMutation for retweetMutation, likeMutation, unlikeMutation here
+  const [retweetMutation] = useMutation(RETWEET_MUTATION)
+  const [likeMutation] = useMutation(LIKE_MUTATION)
+  const [unlikeMutation] = useMutation(UNLIKE_MUTATION)
   const handleRetweet = useCallback(
     async () => {
-      const record: ICreateOneTweetInput = {
+      const record = {
         retweetId: tweet._id,
       }
       try {
@@ -46,7 +57,7 @@ export const TweetContent = ({ tweet }: ITweetContentProps) => {
   )
   const handleLike = useCallback(
     async () => {
-      const record: ICreateOneLikeInput = {
+      const record = {
         tweetId: tweet._id,
       }
       try {
@@ -60,7 +71,7 @@ export const TweetContent = ({ tweet }: ITweetContentProps) => {
   )
   const handleUnlike = useCallback(
     async () => {
-      const filter: IFilterRemoveOneLikeInput = {
+      const filter = {
         tweetId: tweet._id,
       }
       try {
@@ -78,21 +89,21 @@ export const TweetContent = ({ tweet }: ITweetContentProps) => {
       <div className="tweet-content">
         <div className="tweet-info">
           <span className="tweet-fullname">
-            <Link to={`/${tweet.user?.username ?? ''}`} data-testid={`tweet-${tweet._id as string}-fullname`}>
+            <Link to={`/${tweet.user?.username ?? ''}`} data-testid={`tweet-${tweet._id}-fullname`}>
               {tweet.user?.fullname ?? 'Fullname'}
             </Link>
           </span>
           <span className="tweet-username">
-            <Link to={`/${tweet.user?.username ?? ''}`} data-testid={`tweet-${tweet._id as string}-username`}>
+            <Link to={`/${tweet.user?.username ?? ''}`} data-testid={`tweet-${tweet._id}-username`}>
               @{tweet.user?.username ?? 'username'}
             </Link>
           </span>
           <span>·</span>
-          <span className="tweet-timestamp" data-testid={`tweet-${tweet._id as string}-timestamp`}>{moment(tweet.createdAt as string).fromNow()}</span>
+          <span className="tweet-timestamp" data-testid={`tweet-${tweet._id}-timestamp`}>{moment(tweet.createdAt).fromNow()}</span>
         </div>
         <div
           className="tweet-text"
-          data-testid={`tweet-${tweet._id as string}-text`}
+          data-testid={`tweet-${tweet._id}-text`}
         >
           {tweet.text}
         </div>
@@ -102,20 +113,20 @@ export const TweetContent = ({ tweet }: ITweetContentProps) => {
               className="tweet-retweet-button tweet-retweeted"
               type="button"
               onClick={handleRetweet}
-              data-testid={`tweet-${tweet._id as string}-retweeted-button`}
+              data-testid={`tweet-${tweet._id}-retweeted-button`}
               disabled={!user}
             >
-              <span data-testid={`tweet-${tweet._id as string}-retweet-count`}>{tweet.retweetsCount ?? 0}</span> {plural(tweet.retweetsCount ?? 0, 'Retweet')}
+              <span data-testid={`tweet-${tweet._id}-retweet-count`}>{tweet.retweetsCount ?? 0}</span> {plural(tweet.retweetsCount ?? 0, 'Retweet')}
             </button>
           ) : (
             <button
               className="tweet-retweet-button"
               type="button"
               onClick={handleRetweet}
-              data-testid={`tweet-${tweet._id as string}-retweet-button`}
+              data-testid={`tweet-${tweet._id}-retweet-button`}
               disabled={!user}
             >
-              <span data-testid={`tweet-${tweet._id as string}-retweet-count`}>{tweet.retweetsCount ?? 0}</span> {plural(tweet.retweetsCount ?? 0, 'Retweet')}
+              <span data-testid={`tweet-${tweet._id}-retweet-count`}>{tweet.retweetsCount ?? 0}</span> {plural(tweet.retweetsCount ?? 0, 'Retweet')}
             </button>
           )}
           {tweet.liked ? (
@@ -123,20 +134,20 @@ export const TweetContent = ({ tweet }: ITweetContentProps) => {
               className="tweet-like-button tweet-liked"
               type="button"
               onClick={handleUnlike}
-              data-testid={`tweet-${tweet._id as string}-unlike-button`}
+              data-testid={`tweet-${tweet._id}-unlike-button`}
               disabled={!user}
             >
-              <span data-testid={`tweet-${tweet._id as string}-like-count`}>{tweet.likesCount ?? 0}</span> {plural(tweet.likesCount ?? 0, 'Like')}
+              <span data-testid={`tweet-${tweet._id}-like-count`}>{tweet.likesCount ?? 0}</span> {plural(tweet.likesCount ?? 0, 'Like')}
             </button>
           ) : (
             <button
               className="tweet-like-button"
               type="button"
               onClick={handleLike}
-              data-testid={`tweet-${tweet._id as string}-like-button`}
+              data-testid={`tweet-${tweet._id}-like-button`}
               disabled={!user}
             >
-              <span data-testid={`tweet-${tweet._id as string}-like-count`}>{tweet.likesCount ?? 0}</span> {plural(tweet.likesCount ?? 0, 'Like')}
+              <span data-testid={`tweet-${tweet._id}-like-count`}>{tweet.likesCount ?? 0}</span> {plural(tweet.likesCount ?? 0, 'Like')}
             </button>
           )}
         </div>

@@ -11,17 +11,31 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const { login } = useApp()
   // WEB: Implement username and password state here
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   // WEB: Implement handleUsernameChange and handlePasswordChange here
+  const handleUsernameChange = useCallback(
+    (e) => {
+      setUsername(e.target.value)
+    },
+    [setUsername],
+  )
+  const handlePasswordChange = useCallback(
+    (e) => {
+      setPassword(e.target.value)
+    },
+    [setPassword],
+  )
   const handleSubmit = useCallback(
-    async (e: React.SyntheticEvent) => {
+    async (e) => {
       e.preventDefault()
       try {
         setError('')
         await login(username, password)
         navigate('/feed')
       } catch (err) {
-        setError((err as Error).message)
+        setError((err).message)
       }
     },
     [login, username, password, navigate],

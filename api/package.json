@@ -10,6 +10,9 @@
     "seed": "node -r dotenv/config ./dist/seed/index.js"
   },
   "dependencies": {
+    "@babel/core": "^7.17.12",
+    "@babel/preset-env": "^7.17.12",
+    "@babel/register": "^7.17.7",
     "apollo-server-core": "^3.7.0",
     "apollo-server-express": "^3.7.0",
     "bcrypt": "^5.0.1",
