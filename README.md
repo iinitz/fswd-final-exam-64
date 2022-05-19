@@ -1,8 +1,8 @@
 # FsWD 64 - Final exam
 
 ## Student
-#### Student ID: 
-#### Name (TH): 
+#### Student ID: 62070199
+#### Name (TH): สิรภพ หมั่นสมัคร
 
 ## Demo
 - [Twitter clone](https://fswd64.devnss.com)
