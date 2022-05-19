@@ -10,11 +10,24 @@ import './RegisterPage.css'
 
 // WEB: Implement register mutation here
 const REGISTER_MUTATION = gql`
+mutation {
+  register(record: {
+    fullname
+    username
+    password
+
+  }) {
+    recordId
+  }
+}
 `
 
 const RegisterPage = () => {
   const navigate = useNavigate()
   // WEB: Implement fullname, username and password state here
+  const [fullname, setFullname] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   // WEB: Implement useMutation for registerMutation here
   // WEB: Implement handleFullnameChange, handleUsernameChange and handlePasswordChange here

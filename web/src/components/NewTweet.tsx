@@ -1,5 +1,9 @@
-import { gql } from '@apollo/client'
-import { useCallback } from 'react'
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import { gql, useMutation } from '@apollo/client'
+import { useCallback, useState } from 'react'
 
 import { MAX_TWEET_LENGTH } from '../constants'
 import { useApp } from '../contexts/AppContext'
@@ -11,18 +15,36 @@ import './NewTweet.css'
 
 // WEB: Implement createTweet mutation here
 const CREATE_TWEET_MUTATION = gql`
+mutation {
+  createTweet(record: {
+    recordId
+}
 `
 
 export const NewTweet = () => {
   const { user } = useApp()
   const { refetch } = usePage()
   // WEB: Implement text state here
+  const [text, setText] = useState('')
+  // const [retweetId, setRetweetId] = useState('')
+  // const [userId, setUserId] = useState('')
   // WEB: Implement useMutation for createTweetMutation here
+  const [createTweetMutation] = useMutation(CREATE_TWEET_MUTATION)
   // WEB: Implement useCallback for handleTextChange with condition text length <= MAX_TWEET_LENGTH here
+  // const handleTextChange = useCallback(
+  //   if(text.length <= MAX_TWEET_LENGTH){
+  //       setText(text)
+  //   }
+  //   [createTweetMutation, refetch, text],
+  // )
+
   const handleCreateTweet = useCallback(
     async () => {
       const record: ICreateOneTweetInput = {
         text,
+        userId: user?.username,
+        // retweetId,
+
       }
       try {
         const { data: createTweetData } = await createTweetMutation({ variables: { record } })
@@ -44,9 +66,11 @@ export const NewTweet = () => {
       <div className="new-tweet-form">
         <div className="new-tweet-input">
           {/* WEB: Implement textarea with text state here */}
+          {/* <textarea value={content} onChange={(e) => setContent(e.target.value)}></textarea> */}
           <textarea
             data-testid="new-tweet-input"
             placeholder="What's happening?"
+            onChange={(e) => setText(e.target.value)}
           />
         </div>
         <div className="new-tweet-actions">
@@ -55,6 +79,7 @@ export const NewTweet = () => {
           <button
             type="button"
             data-testid="new-tweet-button"
+            onClick={handleCreateTweet}
           >
             Tweet
           </button>
