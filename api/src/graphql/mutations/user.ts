@@ -1,4 +1,5 @@
 import { schemaComposer } from 'graphql-compose'
+import { UserTC } from '../../models/user'
 
 const LoginPayloadOTC = schemaComposer.createObjectTC({
   name: 'LoginPayload',
@@ -22,4 +23,7 @@ const LoginPayloadOTC = schemaComposer.createObjectTC({
     - return token and message "Login success"
     - if error return error message "Server error"
 */
+
 // API: Implement resolver register using createOne from UserTC
+export const register = UserTC.mongooseResolvers.createOne()
+
