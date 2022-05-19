@@ -3,8 +3,7 @@ import { Schema } from 'mongoose'
 import { FollowerModel } from '../../models/follower'
 import { TweetTC } from '../../models/tweet'
 import { UserTC } from '../../models/user'
-import { IApolloContext } from '../../types'
-import { IUser } from '../../types/models'
+
 
 // API: Implement followingCount relation here
 // API: Implement followersCount relation here
@@ -13,8 +12,8 @@ UserTC.addRelation(
   {
     resolver: () => TweetTC.mongooseResolvers.count(),
     prepareArgs: {
-      filter: (source: IUser) => ({
-        userId: source._id as Schema.Types.ObjectId,
+      filter: (source) => ({
+        userId: source._id,
       }),
     },
     projection: { _id: 1 },
@@ -23,7 +22,7 @@ UserTC.addRelation(
 UserTC.addFields({
   following: {
     type: 'Boolean',
-    resolve: async (source: IUser, _args, context: IApolloContext) => {
+    resolve: async (source, _args, context) => {
       if (!context.user) {
         return false
       }
@@ -33,7 +32,7 @@ UserTC.addFields({
       }
       const following = await FollowerModel.findOne({
         userId,
-        followedId: source._id as Schema.Types.ObjectId,
+        followedId: source._id,
       })
       return !!following
     },
