@@ -1,5 +1,7 @@
-import { gql } from '@apollo/client'
-import { useCallback } from 'react'
+import { gql, useMutation, useQuery } from '@apollo/client'
+import { userInfo } from 'os'
+import { useCallback, useState } from 'react'
+// import { text } from 'stream/consumers'
 
 import { MAX_TWEET_LENGTH } from '../constants'
 import { useApp } from '../contexts/AppContext'
@@ -11,14 +13,31 @@ import './NewTweet.css'
 
 // WEB: Implement createTweet mutation here
 const CREATE_TWEET_MUTATION = gql`
+mutation {
+  createTweet(record: {
+    userId: ($userId)
+    text: "say hi!"
+  })
+  {
+    recordId
+  }
+}
 `
 
 export const NewTweet = () => {
   const { user } = useApp()
   const { refetch } = usePage()
   // WEB: Implement text state here
+  const [text, setText] = useState('')
   // WEB: Implement useMutation for createTweetMutation here
+  // const {loading, error, data} = useMutation(CREATE_TWEET_MUTATION)
   // WEB: Implement useCallback for handleTextChange with condition text length <= MAX_TWEET_LENGTH here
+  const handleTextChange = (text as String) => {
+    if (text.length <= MAX_TWEET_LENGTH) {
+      setText(text)
+    }
+  }
+
   const handleCreateTweet = useCallback(
     async () => {
       const record: ICreateOneTweetInput = {
@@ -47,6 +66,7 @@ export const NewTweet = () => {
           <textarea
             data-testid="new-tweet-input"
             placeholder="What's happening?"
+            onInput={handleTextChange}
           />
         </div>
         <div className="new-tweet-actions">
@@ -55,6 +75,7 @@ export const NewTweet = () => {
           <button
             type="button"
             data-testid="new-tweet-button"
+            onClick={async () => await handleCreateTweet()}
           >
             Tweet
           </button>
