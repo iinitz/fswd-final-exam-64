@@ -30,6 +30,7 @@ query {
         fullname
         username
       }
+      createdAt
     }
     retweetsCount
     likesCount
