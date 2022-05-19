@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql, useMutation, useQuery } from '@apollo/client'
 import moment from 'moment'
 import { useCallback, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
@@ -70,7 +70,16 @@ const ProfilePage = () => {
   const { user } = useApp()
   const { username } = useParams()
   // WEB: Implement useQuery for profile query (destruct { data, loading, refetch } from useQuery) with options fetchPolicy: 'network-only' here
+  const { loading, error, data, refetch } = useQuery(
+    PROFILE_QUERY,
+    {
+      fetchPolicy:'network-only'
+    }
+  )
   // WEB: Implement useMutation for followMutation and unfollowMutation here
+  const [followMutation] = useMutation(FOLLOW_MUTATION)
+  const [unfollowMutation] = useMutation(UNFOLLOW_MUTATION)
+  
   const handleFollow = useCallback(
     async () => {
       const record: ICreateOneFollowerInput = {

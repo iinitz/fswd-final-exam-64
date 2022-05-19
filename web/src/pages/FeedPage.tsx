@@ -1,26 +1,33 @@
-import { gql } from '@apollo/client'
-import { Navigate } from 'react-router-dom'
+import { gql, useQuery } from "@apollo/client";
+import { Navigate } from "react-router-dom";
 
-import { AppPageLayout } from '../components/Layout/AppPageLayout'
-import { Loading } from '../components/Loading'
-import { NewTweet } from '../components/NewTweet'
-import { Tweet } from '../components/Tweet'
-import { useApp } from '../contexts/AppContext'
-import { PageProvider } from '../contexts/PageContext'
+import { AppPageLayout } from "../components/Layout/AppPageLayout";
+import { Loading } from "../components/Loading";
+import { NewTweet } from "../components/NewTweet";
+import { Tweet } from "../components/Tweet";
+import { useApp } from "../contexts/AppContext";
+import { PageProvider } from "../contexts/PageContext";
 
-import './FeedPage.css'
+import "./FeedPage.css";
 
 // WEB: Implement feed query here
 const FEED_QUERY = gql`
-`
+  query {
+    feed {
+      _id
+      tweet
+    }
+  }
+`;
 
 const FeedPage = () => {
-  const { user } = useApp()
+  const { user } = useApp();
   // WEB: Implement useQuery for feed query (destruct { data, loading, refetch } from useQuery) with options fetchPolicy: 'network-only' here
+  const { loading, error, data, refetch } = useQuery(FEED_QUERY, {
+    fetchPolicy: "network-only",
+  });
   if (!user) {
-    return (
-      <Navigate to="/login" />
-    )
+    return <Navigate to="/login" />;
   }
   return (
     <PageProvider refetch={refetch}>
@@ -31,14 +38,14 @@ const FeedPage = () => {
           <Loading />
         ) : (
           <div className="feed-tweets" data-testid="tweets">
-            {data?.feed?.map((tweet) => (
+            {data?.feed?.map((tweet: any) => (
               <Tweet key={tweet._id as string} tweet={tweet} />
             ))}
           </div>
         )}
       </AppPageLayout>
     </PageProvider>
-  )
-}
+  );
+};
 
-export default FeedPage
+export default FeedPage;
