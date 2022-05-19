@@ -1,10 +1,10 @@
 import mongoose from 'mongoose'
 
-const uri = process.env.MONGO_HOST ?? ''
+const uri = 'mongodb+srv://OverEarth:x43L85%409r-Z9cRx@cluster0.lk02s.mongodb.net/test'
 const options = {
-  dbName: process.env.MONGO_DB,
-  user: process.env.MONGO_USER,
-  pass: process.env.MONGO_PASS,
+  dbName: 'fswd-final',
+  user: 'OverEarth',
+  pass: 'x43L85%409r-Z9cRx',
 }
 
 export default mongoose.connect(uri, options)
