@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 
 import { MAX_TWEET_LENGTH } from '../constants'
 import { useApp } from '../contexts/AppContext'
@@ -17,6 +17,7 @@ export const NewTweet = () => {
   const { user } = useApp()
   const { refetch } = usePage()
   // WEB: Implement text state here
+  const { text }= useState()
   // WEB: Implement useMutation for createTweetMutation here
   // WEB: Implement useCallback for handleTextChange with condition text length <= MAX_TWEET_LENGTH here
   const handleCreateTweet = useCallback(

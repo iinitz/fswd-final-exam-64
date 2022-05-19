@@ -1,9 +1,10 @@
 import { Schema } from 'mongoose'
+import { LikeModel, LikeTC } from '../../models/like'
 
 import { TweetModel, TweetTC } from '../../models/tweet'
 import { UserTC } from '../../models/user'
 import { IApolloContext } from '../../types'
-import { ITweet } from '../../types/models'
+import { ILike, ITweet } from '../../types/models'
 
 TweetTC.addRelation(
   'user',
@@ -15,6 +16,39 @@ TweetTC.addRelation(
     projection: { userId: 1 },
   },
 )
+
+TweetTC.addRelation(
+  'retweetsCount',{
+    resolver: () => TweetTC.mongooseResolvers.count(),
+    prepareArgs : {
+      filter: (source: ITweet) =>({
+        userTd : source._id as Schema.Types.ObjectId,
+      })
+    },
+    projection: {id : 1},
+  },
+)
+TweetTC.addRelation(
+  'retweets',{
+    resolver: () => TweetTC.mongooseResolvers.findById(),
+    prepareArgs : {
+      _id: (source: ITweet) => source.userId,
+    },
+    projection: {id : 1},
+  },
+)
+TweetTC.addRelation(
+  'likeCount',{
+    resolver: () => LikeTC.mongooseResolvers.count(),
+    prepareArgs : {
+      filter: (source: ITweet) =>({
+        userTd : source._id as Schema.Types.ObjectId,
+      })
+    },
+    projection: {id : 1},
+  },
+)
+
 // API: Implement retweet relation here
 // API: Implement retweetsCount relation here
 // API: Implement likesCount relation here
@@ -41,4 +75,18 @@ TweetTC.addFields({
       - findOne like by tweetId from source._id and userId from context.user._id
       - return true if found
   */
+  liked:{
+   type: "Boolean",
+   resolve : async (source: ITweet, _args, context : IApolloContext) => {
+     if (!context.user){
+       return false
+     }
+     const {user: {_id : userId }} = context
+     const like = await LikeModel.findOne({
+       tweetId: source._id as Schema.Types.ObjectId,
+       userId,
+    })
+    return !!like
+   }
+ }
 })
