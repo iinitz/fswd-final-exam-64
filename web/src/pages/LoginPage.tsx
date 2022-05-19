@@ -11,6 +11,9 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const { login } = useApp()
   // WEB: Implement username and password state here
+  const [username, setUserName] = useState('')
+  const [password, setPassword] = useState('')
+
   const [error, setError] = useState('')
   // WEB: Implement handleUsernameChange and handlePasswordChange here
   const handleSubmit = useCallback(
@@ -35,6 +38,7 @@ const LoginPage = () => {
             id="username-input"
             type="text"
             value={username}
+            onChange={(e) => setUserName(e.target.value)}
             onChange={handleUsernameChange}
             data-testid="username-input"
           />
@@ -45,6 +49,7 @@ const LoginPage = () => {
             id="password-input"
             type="password"
             value={password}
+            onChange={(e) => setPassword(e.target.value)}
             onChange={handlePasswordChange}
             data-testid="password-input"
           />

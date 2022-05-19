@@ -10,14 +10,34 @@ import './RegisterPage.css'
 
 // WEB: Implement register mutation here
 const REGISTER_MUTATION = gql`
+mutation ($record: CreateOneUserInput!) {
+    register (record: $record) {
+      recordId
+    }
+  }
 `
 
 const RegisterPage = () => {
   const navigate = useNavigate()
   // WEB: Implement fullname, username and password state here
+  const [fullname, setFullName] = useState('')
+  const [username, setUserName] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+
   // WEB: Implement useMutation for registerMutation here
+  const registerMutation = useMutation(REGISTER_MUTATION)
+
   // WEB: Implement handleFullnameChange, handleUsernameChange and handlePasswordChange here
+  function handleFullnameChange(e) {
+    setFullName(e.target.value)
+  }
+  function handleUsernameChange(e) {
+    setUserName(e.target.value)
+  }
+  function handlePasswordChange(e) {
+    setPassword(e.target.value)
+  }
   const handleSubmit = useCallback(
     async (e: React.SyntheticEvent) => {
       e.preventDefault()
@@ -51,7 +71,7 @@ const RegisterPage = () => {
             id="fullname-input"
             type="text"
             value={fullname}
-            onChange={handleFullnameChange}
+            onChange={handleFullnameChange(e)}
             data-testid="fullname-input"
           />
         </label>
@@ -61,7 +81,7 @@ const RegisterPage = () => {
             id="username-input"
             type="text"
             value={username}
-            onChange={handleUsernameChange}
+            onChange={handleUsernameChange(e)}
             data-testid="username-input"
           />
         </label>
@@ -71,7 +91,7 @@ const RegisterPage = () => {
             id="password-input"
             type="password"
             value={password}
-            onChange={handlePasswordChange}
+            onChange={handlePasswordChange(e)}
             data-testid="password-input"
           />
         </label>
