@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client'
 import { useCallback, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useMutation } from '@apollo/client'
 
 import { ErrorMessage } from '../components/ErrorMessage'
 import { LandingPageLayout } from '../components/Layout/LandingPageLayout'
@@ -17,6 +18,7 @@ const RegisterPage = () => {
   // WEB: Implement fullname, username and password state here
   const [error, setError] = useState('')
   // WEB: Implement useMutation for registerMutation here
+  const registerMutation = useMutation(ICreateOneUserInput)
   // WEB: Implement handleFullnameChange, handleUsernameChange and handlePasswordChange here
   const handleSubmit = useCallback(
     async (e: React.SyntheticEvent) => {
