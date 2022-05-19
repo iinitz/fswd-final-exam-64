@@ -20,9 +20,9 @@ const RegisterPage = () => {
   const navigate = useNavigate()
 
   // WEB: Implement fullname, username and password state here
-  const [fullname, setFullname] = useState()
-  const [username, setUsername] = useState()
-  const [password, setPassword] = useState()
+  const [fullname, setFullname] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   const [error, setError] = useState('')
 
@@ -30,17 +30,14 @@ const RegisterPage = () => {
   const [registerMutation] = useMutation(REGISTER_MUTATION)
 
   // WEB: Implement handleFullnameChange, handleUsernameChange and handlePasswordChange here
-  const handleFullnameChange = (input) => {
-    console.log(input)
-    setFullname(input)
+  const handleFullnameChange = (event) => {
+    setFullname(event.target.value)
   }
-  const handleUsernameChange = (input) => {
-    console.log(input)
-    setUsername(input)
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value)
   }
-  const handlePasswordChange = (input) => {
-    console.log(input)
-    setPassword(input)
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value)
   }
 
   const handleSubmit = useCallback(

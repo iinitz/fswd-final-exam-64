@@ -12,20 +12,18 @@ const LoginPage = () => {
   const { login } = useApp()
 
   // WEB: Implement username and password state here
-  const [username, setUsername] = useState()
-  const [password, setPassword] = useState()
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   const [error, setError] = useState('')
 
   // WEB: Implement handleUsernameChange and handlePasswordChange here
-  const handleUsernameChange = (input) => {
-    console.log(input)
-    setUsername(input)
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value)
   }
 
-  const handlePasswordChange = (input) => {
-    console.log(input)
-    setPassword(input)
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value)
   }
 
   const handleSubmit = useCallback(
