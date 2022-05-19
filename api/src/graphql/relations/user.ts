@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose'
 
-import { FollowerModel } from '../../models/follower'
+import { FollowerModel, FollowerTC } from '../../models/follower'
 import { TweetTC } from '../../models/tweet'
 import { UserTC } from '../../models/user'
 import { IApolloContext } from '../../types'
@@ -10,7 +10,7 @@ import { IUser } from '../../types/models'
 UserTC.addRelation(
   'followingCount',
   {
-    resolver: () => UserTC.mongooseResolvers.count(),
+    resolver: () => FollowerTC.mongooseResolvers.count(),
     prepareArgs: {
       filter: (source: IUser) => ({
         userId: source._id as Schema.Types.ObjectId,
@@ -23,7 +23,7 @@ UserTC.addRelation(
 UserTC.addRelation(
   'followersCount',
   {
-    resolver: () => UserTC.mongooseResolvers.count(),
+    resolver: () => FollowerTC.mongooseResolvers.count(),
     prepareArgs: {
       filter: (source: IUser) => ({
         followedId: source._id as Schema.Types.ObjectId,
