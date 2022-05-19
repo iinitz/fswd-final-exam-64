@@ -2,6 +2,7 @@ import { Schema } from 'mongoose'
 
 import { TweetModel, TweetTC } from '../../models/tweet'
 import { UserTC } from '../../models/user'
+import { LikeTC } from '../../models/like'
 import { IApolloContext } from '../../types'
 import { ITweet } from '../../types/models'
 
@@ -15,9 +16,63 @@ TweetTC.addRelation(
     projection: { userId: 1 },
   },
 )
+
 // API: Implement retweet relation here
+TweetTC.addRelation(
+    'retweet',
+    {
+      resolver: TweetTC.getResolver('findMany'),
+      projection: { _id: 1 }, // Main
+      prepareArgs: {
+        filter: (tweet) => ({
+            _id : tweet._id,
+        }),
+      },
+    },
+  )
+
+
 // API: Implement retweetsCount relation here
+TweetTC.addRelation(
+    'retweetsCount',
+    {
+      resolver: TweetTC.getResolver('findMany'),
+      projection: { _id: 1 }, // Main
+      prepareArgs: {
+        filter: (tweet) => ({
+            _id : tweet._id,
+        }),
+      },
+    },
+  )
+
+
+
+
+
 // API: Implement likesCount relation here
+
+TweetTC.addRelation(
+    'likesCount',
+    {
+        resolver: () => LikeTC.mongooseResolvers.count(),
+        prepareArgs: {
+          filter: (source: ITweet) => ({
+            userId: source._id as Schema.Types.ObjectId,
+          }),
+        },
+        projection: { _id: 1 },
+      },
+  )
+
+
+
+
+
+
+
+
+
 TweetTC.addFields({
   retweeted: {
     type: 'Boolean',

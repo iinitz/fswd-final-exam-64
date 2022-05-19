@@ -3,15 +3,29 @@ import { Schema } from 'mongoose'
 import { FollowerModel } from '../../models/follower'
 import { TweetTC } from '../../models/tweet'
 import { UserTC } from '../../models/user'
+import { FollowerTC } from '../../models/follower'
 import { IApolloContext } from '../../types'
 import { IUser } from '../../types/models'
 
 // API: Implement followingCount relation here
+UserTC.addRelation(
+    'followingCount',
+    {
+      resolver: () => UserTC.mongooseResolvers.count(),
+      prepareArgs: {
+        filter: (source: IUser) => ({
+          userId: source._id as Schema.Types.ObjectId,
+        }),
+      },
+      projection: { _id: 1 },
+    },
+  )
+
 // API: Implement followersCount relation here
 UserTC.addRelation(
   'tweetsCount',
   {
-    resolver: () => TweetTC.mongooseResolvers.count(),
+    resolver: () => FollowerTC.mongooseResolvers.count(),
     prepareArgs: {
       filter: (source: IUser) => ({
         userId: source._id as Schema.Types.ObjectId,
