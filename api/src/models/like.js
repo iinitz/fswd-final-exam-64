@@ -1,8 +1,9 @@
+import { composeWithMongoose } from 'graphql-compose-mongoose'
 import { model, Schema } from 'mongoose'
 
-import { ILike } from '../types/models'
 
-const LikeSchema = new Schema<ILike>(
+
+const LikeSchema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
@@ -20,6 +21,7 @@ const LikeSchema = new Schema<ILike>(
   { timestamps: true },
 )
 
-export const LikeModel = model<ILike>('Like', LikeSchema)
+export const LikeModel = model('Like', LikeSchema)
+export const LikeTC = composeWithMongoose(LikeModel)
 
 // API: Implement LikeTC here

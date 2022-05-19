@@ -8,7 +8,7 @@ export const me = schemaComposer.createResolver({
   name: 'me',
   kind: 'query',
   type: UserTC.getType(),
-  resolve: async ({ context }: ResolverResolveParams<IUser, IApolloContext>) => {
+  resolve: async ({ context }) => {
     if (!context.user) {
       return null
     }

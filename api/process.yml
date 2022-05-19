@@ -1,5 +1,5 @@
 apps:
-  - script       : 'dist/app.js'
+  - script       : 'src/app.ts'
     node_args    : '-r dotenv/config'
     name         : 'app'
     env          :
