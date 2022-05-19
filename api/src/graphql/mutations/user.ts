@@ -1,4 +1,5 @@
 import { schemaComposer } from 'graphql-compose'
+import { UserModel } from '../../models/user';
 
 const LoginPayloadOTC = schemaComposer.createObjectTC({
   name: 'LoginPayload',
@@ -6,6 +7,32 @@ const LoginPayloadOTC = schemaComposer.createObjectTC({
     message: 'String!',
     token: 'String',
   },
+})
+
+export cost login = schemaComposer.createResolver({
+  name: "login",
+  kind: "mutation",
+  type: LoginPayloadOTC,
+  args: {
+    username: "String!",
+    password: "String!",
+  },
+  resolve: async ({ args }) => {
+    const { username, password } = args;
+    const user = await UserModel.findOne({username: username, password: password})
+  
+    if(!user){
+      return{
+        message: "user not found"
+      }
+    }
+
+    if(user.verifyPassword(password)){
+      return{
+        message: "incorrect password"
+      }
+    }
+  }
 })
 /*
   API: Implement resolver login
