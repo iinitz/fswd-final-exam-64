@@ -16,7 +16,31 @@ TweetTC.addRelation(
   },
 )
 // API: Implement retweet relation here
+TweetTC.addRelation(
+  'retweet',
+  {
+    resolver: () => TweetTC.mongooseResolvers.findById(),
+    prepareArgs: {
+      _id: (source: ITweet) => source.userId,
+    },
+    projection: { userId: 1 },
+  },
+)
+
 // API: Implement retweetsCount relation here
+TweetTC.addRelation(
+  'retweetsCount',
+  {
+    resolver: () => TweetTC.mongooseResolvers.count(),
+    prepareArgs: {
+      filter: (source: ITweet) => ({
+        retweetId: source._id as Schema.Types.ObjectId,
+      }),
+    },
+    projection: { _id: 1 },
+  },
+)
+
 // API: Implement likesCount relation here
 TweetTC.addFields({
   retweeted: {

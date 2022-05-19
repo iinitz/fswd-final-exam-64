@@ -20,6 +20,7 @@ export const follow = FollowerTC.mongooseResolvers.createOne({ record: { removeF
   const newRp = mergeDeepRight(rp, customRp) as ResolverResolveParams<IFollower, IApolloContext>
   return next(newRp) as Promise<IFollower>
 })
+
 export const unfollow = FollowerTC.mongooseResolvers.removeOne({ filter: { isRequired: true, requiredFields: ['followedId'], removeFields: ['_id', 'userId', 'createdAt', 'updatedAt'] } }).wrapResolve((next: ResolverRpCb<IFollower, IApolloContext>) => (rp: ResolverResolveParams<IFollower, IApolloContext>) => {
   if (!rp.context.user) {
     throw new ForbiddenError('Unauthorized')
