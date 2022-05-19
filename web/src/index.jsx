@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloProvider } from '@apollo/client'
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 import React from 'react'
 import { CookiesProvider } from 'react-cookie'
 import ReactDOM from 'react-dom/client'
