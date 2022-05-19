@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { gql, useLazyQuery, useMutation } from '@apollo/client'
 import {
   createContext, useCallback, useContext, useEffect, useMemo, useState,

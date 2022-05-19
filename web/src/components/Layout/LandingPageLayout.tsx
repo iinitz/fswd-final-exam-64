@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { memo } from 'react'
 import { Navigate } from 'react-router-dom'
 

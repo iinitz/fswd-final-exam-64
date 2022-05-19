@@ -1,4 +1,5 @@
-import { gql } from '@apollo/client'
+/* eslint-disable linebreak-style */
+import { gql, useQuery, useMutation } from '@apollo/client'
 import moment from 'moment'
 import { useCallback, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
@@ -61,16 +62,38 @@ query ($username: String!) {
 `
 // WEB: Implement follow mutation here
 const FOLLOW_MUTATION = gql`
+mutation ($record: CreateOneFollowerInput!) {
+  follow (record: $record) {
+    recordId
+  }
+}
 `
 // WEB: Implement unfollow mutation here
 const UNFOLLOW_MUTATION = gql`
+mutation ($record: CreateOnePostInput!) {
+  unfollow (record: $record) {
+    recordId
+  }
+}
 `
 
 const ProfilePage = () => {
   const { user } = useApp()
   const { username } = useParams()
   // WEB: Implement useQuery for profile query (destruct { data, loading, refetch } from useQuery) with options fetchPolicy: 'network-only' here
+  const {
+    loading, error, data, refetch,
+  } = useQuery(
+    PROFILE_QUERY,
+    {
+      fetchPolicy: 'network-only',
+    },
+  )
   // WEB: Implement useMutation for followMutation and unfollowMutation here
+  const [followMutation] = useMutation(FOLLOW_MUTATION)
+
+  const [unfollowMutation] = useMutation(UNFOLLOW_MUTATION)
+
   const handleFollow = useCallback(
     async () => {
       const record: ICreateOneFollowerInput = {
@@ -159,7 +182,7 @@ const ProfilePage = () => {
               </div>
             </div>
             <div className="profile-tweets" data-testid="tweets">
-              {data?.tweets?.map((tweet) => (
+              {data?.tweets?.map((tweet:any) => (
                 <Tweet key={tweet._id as string} tweet={tweet} />
               ))}
             </div>

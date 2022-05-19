@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { ApolloQueryResult } from '@apollo/client'
 import { createContext, useContext, useMemo } from 'react'
 

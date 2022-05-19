@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { Navigate } from 'react-router-dom'
 
 import { Loading } from '../components/Loading'

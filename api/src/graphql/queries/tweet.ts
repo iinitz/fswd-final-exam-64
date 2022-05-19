@@ -12,7 +12,7 @@ interface ITweetsArgs {
 export const tweets = schemaComposer.createResolver({
   name: 'tweets',
   kind: 'query',
-  type: TweetTC.mongooseResolvers.findMany().getType(),
+  type: TweetTC.getType(),
   args: {
     username: 'String!',
   },
@@ -29,7 +29,7 @@ export const tweets = schemaComposer.createResolver({
 export const feed = schemaComposer.createResolver({
   name: 'feed',
   kind: 'query',
-  type: TweetTC.mongooseResolvers.findMany().getType(),
+  type: TweetTC.getType(),
   resolve: async ({ context }: ResolverResolveParams<ITweet, IApolloContext>) => {
     if (!context.user) {
       return []

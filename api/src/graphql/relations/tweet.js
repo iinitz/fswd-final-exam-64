@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { Schema } from 'mongoose'
 
 import { TweetModel, TweetTC } from '../../models/tweet'
@@ -10,7 +11,7 @@ TweetTC.addRelation(
   {
     resolver: () => UserTC.mongooseResolvers.findById(),
     prepareArgs: {
-      _id: (source: ITweet) => source.userId,
+      _id: (source) => source.userId,
     },
     projection: { userId: 1 },
   },
@@ -21,14 +22,14 @@ TweetTC.addRelation(
 TweetTC.addFields({
   retweeted: {
     type: 'Boolean',
-    resolve: async (source: ITweet, _args, context: IApolloContext) => {
+    resolve: async (source, _args, context) => {
       if (!context.user) {
         return false
       }
       const { user: { _id: userId } } = context
       const retweet = await TweetModel.findOne({
         userId,
-        retweetId: source._id as Schema.Types.ObjectId,
+        retweetId: source._id,
       })
       return !!retweet
     },

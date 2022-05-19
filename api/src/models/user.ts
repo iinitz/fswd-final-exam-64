@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { composeMongoose } from 'graphql-compose-mongoose'
 import { model, Schema } from 'mongoose'
 
