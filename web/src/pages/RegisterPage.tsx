@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 import { useCallback, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -10,13 +10,21 @@ import './RegisterPage.css'
 
 // WEB: Implement register mutation here
 const REGISTER_MUTATION = gql`
+  mutation($record: CreateOneUserInput!){
+    createUser(record: $record){
+    recordId}
+  }
 `
 
 const RegisterPage = () => {
   const navigate = useNavigate()
   // WEB: Implement fullname, username and password state here
+  const [fullname, setFullname] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   // WEB: Implement useMutation for registerMutation here
+  const [registerMutation] = useMutation(REGISTER_MUTATION)
   // WEB: Implement handleFullnameChange, handleUsernameChange and handlePasswordChange here
   const handleSubmit = useCallback(
     async (e: React.SyntheticEvent) => {
@@ -51,7 +59,7 @@ const RegisterPage = () => {
             id="fullname-input"
             type="text"
             value={fullname}
-            onChange={handleFullnameChange}
+            onChange={(e) => setFullname(e.target.value)}
             data-testid="fullname-input"
           />
         </label>
@@ -61,7 +69,7 @@ const RegisterPage = () => {
             id="username-input"
             type="text"
             value={username}
-            onChange={handleUsernameChange}
+            onChange={(e) => setUsername(e.target.value)}
             data-testid="username-input"
           />
         </label>
@@ -71,7 +79,7 @@ const RegisterPage = () => {
             id="password-input"
             type="password"
             value={password}
-            onChange={handlePasswordChange}
+            onChange={(e) => setPassword(e.target.value)}
             data-testid="password-input"
           />
         </label>
