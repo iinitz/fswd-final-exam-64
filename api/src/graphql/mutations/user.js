@@ -22,4 +22,5 @@ const LoginPayloadOTC = schemaComposer.createObjectTC({
     - return token and message "Login success"
     - if error return error message "Server error"
 */
+export const register = UserTC.getResolver('createOne')
 // API: Implement resolver register using createOne from UserTC

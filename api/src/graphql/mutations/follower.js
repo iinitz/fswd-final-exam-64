@@ -1,6 +1,7 @@
 import { ForbiddenError } from 'apollo-server-core'
 import { ResolverResolveParams, ResolverRpCb } from 'graphql-compose'
 import { mergeDeepRight } from 'ramda'
+import { composeWithMongoose } from 'graphql-compose-mongoose'
 
 import { FollowerTC } from '../../models/follower'
 
@@ -9,7 +10,7 @@ import { FollowerTC } from '../../models/follower'
 
 
 
-  export const follow = FollowerTC.mongooseResolvers.createOne({ record: { removeFields: ['_id', 'userId', 'createdAt', 'updatedAt'] } }).wrapResolve((next) => (rp) => {
+  export const follow = FollowerTC.getResolver({ record: { removeFields: ['_id', 'userId', 'createdAt', 'updatedAt'] } }).wrapResolve((next) => (rp) => {
     if (!rp.context.user) {
       throw new ForbiddenError('Unauthorized')
     }
