@@ -4,13 +4,13 @@ import { ApolloServerPluginDrainHttpServer, ApolloServerPluginLandingPageGraphQL
 import { ApolloServer } from 'apollo-server-express'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-import express, { Application } from 'express'
+import express from 'express'
 
 import schema from './graphql'
 import { decodeToken, getReqToken } from './lib/jwtUtils'
 import './mongoose-connect'
 
-const app: Application = express()
+const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
@@ -31,6 +31,8 @@ const startApolloServer = async () => {
       return { user }
     },
   })
+
+  console.log("Mongo Connect");
   await apolloServer.start()
   apolloServer.applyMiddleware({
     app,

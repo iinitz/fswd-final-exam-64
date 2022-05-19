@@ -10,25 +10,58 @@ TweetTC.addRelation(
   {
     resolver: () => UserTC.mongooseResolvers.findById(),
     prepareArgs: {
-      _id: (source: ITweet) => source.userId,
+      _id: (source) => source.userId,
     },
     projection: { userId: 1 },
   },
-)
+) 
 // API: Implement retweet relation here
+TweetTC.addRelation(
+  'retweet',
+  {
+    resolver: () => UserTC.mongooseResolvers.findById(),
+    prepareArgs: {
+      _id: (source) => source.userId,
+    },
+    projection: { retweetId: 1 },
+  }
+)
+
 // API: Implement retweetsCount relation here
+TweetTC.addRelation(
+  'retweetsCount',
+  {
+    resolver: () => UserTC.mongooseResolvers.count(),
+    prepareArgs: {
+      _id: (source) => source.userId,
+    },
+    projection: { userId: 1 },
+  }
+)
+
 // API: Implement likesCount relation here
+TweetTC.addRelation(
+  'likesCount',
+  {
+    resolver: () => UserTC.mongooseResolvers.count(),
+    prepareArgs: {
+      _id: (source) => source.userId,
+    },
+    projection: { userId: 1 },
+  }
+)
+
 TweetTC.addFields({
   retweeted: {
     type: 'Boolean',
-    resolve: async (source: ITweet, _args, context: IApolloContext) => {
+    resolve: async (source, _args, context) => {
       if (!context.user) {
         return false
       }
       const { user: { _id: userId } } = context
       const retweet = await TweetModel.findOne({
         userId,
-        retweetId: source._id as Schema.Types.ObjectId,
+        retweetId: source._id,
       })
       return !!retweet
     },
