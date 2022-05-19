@@ -4,7 +4,7 @@ import { model, Schema } from 'mongoose'
 import { preSaveHook, preUpdateHook, verifyPassword } from '../lib/passwordUtils'
 import { IUser } from '../types/models'
 
-const UserSchema = new Schema<IUser>(
+const UserSchema = new Schema(
   {
     fullname: {
       type: String,
@@ -26,10 +26,11 @@ const UserSchema = new Schema<IUser>(
   },
   { timestamps: true },
 )
+
 UserSchema.pre('save', preSaveHook)
 UserSchema.pre('updateOne', preUpdateHook)
 UserSchema.method('verifyPassword', verifyPassword)
 
-export const UserModel = model<IUser>('User', UserSchema)
+export const UserModel = model('User', UserSchema)
 
 export const UserTC = composeMongoose(UserModel).removeField('password')
