@@ -1,5 +1,5 @@
 import { schemaComposer } from 'graphql-compose'
-
+import { UserTC } from '../../models/user'
 const LoginPayloadOTC = schemaComposer.createObjectTC({
   name: 'LoginPayload',
   fields: {
@@ -7,6 +7,10 @@ const LoginPayloadOTC = schemaComposer.createObjectTC({
     token: 'String',
   },
 })
+
+export const createUser = UserTC.getResolver('createOne')
+export const updateUser = UserTC.getResolver('updateUser')
+export const removeUser = UserTC.getResolver('removeUser')
 /*
   API: Implement resolver login
   type: LoginPayloadOTC
