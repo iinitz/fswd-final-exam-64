@@ -32,7 +32,7 @@ const FeedPage = () => {
         ) : (
           <div className="feed-tweets" data-testid="tweets">
             {data?.feed?.map((tweet) => (
-              <Tweet key={tweet._id as string} tweet={tweet} />
+              <Tweet key={tweet._id} tweet={tweet} />
             ))}
           </div>
         )}

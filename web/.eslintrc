@@ -1,4 +1,5 @@
 {
+  "root": true,
   "extends": "iinitz/ts-react",
   "parserOptions": {
     "project": "./tsconfig.json"
@@ -14,6 +15,11 @@
         ]
       }
     ],
-    "@typescript-eslint/no-misused-promises": 0
+    "@typescript-eslint/no-misused-promises": 0,
+    "linebreak-style": ["error", "windows"],
+    "global-require": 0,
+    "eslint linebreak-style": [0, "error", "windows"],
+    "@typescript-eslint/no-unsafe-assignment": 0
   }
 }
+
