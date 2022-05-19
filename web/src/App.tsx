@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { Routes } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
 import { Loading } from './components/Loading'
 
@@ -19,6 +19,12 @@ const App = () => (
       {/* WEB: Implement route /logout element LogoutPage here */}
       {/* WEB: Implement route / element HomePage here */}
       {/* WEB: Implement route /:username element ProfilePage here */}
+      <Route path="/" element={<HomePage></HomePage>} />
+      <Route path="/register" element={<RegisterPage></RegisterPage>} />
+      <Route path="/login" element={<LoginPage></LoginPage>} />
+      <Route path="/logout" element={<LogoutPage></LogoutPage>} />
+      <Route path="/feed" element={<FeedPage></FeedPage>} />
+      <Route path="/:username" element={<ProfilePage></ProfilePage>} />
     </Routes>
   </Suspense>
 )

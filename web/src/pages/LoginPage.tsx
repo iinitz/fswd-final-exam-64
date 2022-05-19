@@ -13,6 +13,7 @@ const LoginPage = () => {
   // WEB: Implement username and password state here
   const [error, setError] = useState('')
   // WEB: Implement handleUsernameChange and handlePasswordChange here
+
   const handleSubmit = useCallback(
     async (e: React.SyntheticEvent) => {
       e.preventDefault()
