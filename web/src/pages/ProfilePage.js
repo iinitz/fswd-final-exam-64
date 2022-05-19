@@ -61,6 +61,9 @@ query ($username: String!) {
 `
 // WEB: Implement follow mutation here
 const FOLLOW_MUTATION = gql`
+query ($username: String!) {
+  
+}
 `
 // WEB: Implement unfollow mutation here
 const UNFOLLOW_MUTATION = gql`

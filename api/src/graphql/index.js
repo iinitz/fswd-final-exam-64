@@ -7,6 +7,9 @@ import './relations'
 schemaComposer.Query.addFields(queryFields)
 schemaComposer.Mutation.addFields(mutationFields)
 
+// const schema = schemaComposer.buildSchema()
+
+// export default schema
 const schema = schemaComposer.buildSchema()
 
 export default schema
