@@ -1,27 +1,49 @@
-import { gql } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 import { useCallback, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { ErrorMessage } from '../components/ErrorMessage'
 import { LandingPageLayout } from '../components/Layout/LandingPageLayout'
-import { ICreateOneUserInput } from '../types'
 
 import './RegisterPage.css'
 
 // WEB: Implement register mutation here
 const REGISTER_MUTATION = gql`
+mutation ($record: CreateOneUserInput!) {
+  register (record: $record) {
+    recordId
+  }
+}
 `
 
 const RegisterPage = () => {
   const navigate = useNavigate()
+
   // WEB: Implement fullname, username and password state here
+  const [fullname, setFullname] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
   const [error, setError] = useState('')
+
   // WEB: Implement useMutation for registerMutation here
+  const [registerMutation] = useMutation(REGISTER_MUTATION)
+
   // WEB: Implement handleFullnameChange, handleUsernameChange and handlePasswordChange here
+  const handleFullnameChange = (event) => {
+    setFullname(event.target.value)
+  }
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value)
+  }
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value)
+  }
+
   const handleSubmit = useCallback(
-    async (e: React.SyntheticEvent) => {
+    async (e) => {
       e.preventDefault()
-      const record: ICreateOneUserInput = {
+      const record = {
         fullname,
         username,
         password,
@@ -33,7 +55,7 @@ const RegisterPage = () => {
           navigate('/login')
         }
       } catch (err) {
-        if ((err as Error).message.startsWith('E11000')) {
+        if (err.message.startsWith('E11000')) {
           setError(`Duplicate username ${username}`)
         } else {
           setError('Server error')

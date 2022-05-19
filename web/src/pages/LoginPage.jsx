@@ -10,18 +10,31 @@ import './LoginPage.css'
 const LoginPage = () => {
   const navigate = useNavigate()
   const { login } = useApp()
+
   // WEB: Implement username and password state here
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
   const [error, setError] = useState('')
+
   // WEB: Implement handleUsernameChange and handlePasswordChange here
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value)
+  }
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value)
+  }
+
   const handleSubmit = useCallback(
-    async (e: React.SyntheticEvent) => {
+    async (e) => {
       e.preventDefault()
       try {
         setError('')
         await login(username, password)
         navigate('/feed')
       } catch (err) {
-        setError((err as Error).message)
+        setError(err.message)
       }
     },
     [login, username, password, navigate],

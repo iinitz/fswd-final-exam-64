@@ -10,7 +10,7 @@ import schema from './graphql'
 import { decodeToken, getReqToken } from './lib/jwtUtils'
 import './mongoose-connect'
 
-const app: Application = express()
+const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
