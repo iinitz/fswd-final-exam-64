@@ -12,6 +12,6 @@ generates:
       namingConvention:
         enumValues: change-case-all#constantCase
         transformUnderscore: true
-hooks:
-  afterAllFileWrite:
-    - eslint --fix
+# hooks:
+#   afterAllFileWrite:
+#     - eslint --fix

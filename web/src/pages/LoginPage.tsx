@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { ChangeEvent, useCallback, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { ErrorMessage } from '../components/ErrorMessage'
@@ -11,8 +11,22 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const { login } = useApp()
   // WEB: Implement username and password state here
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   // WEB: Implement handleUsernameChange and handlePasswordChange here
+  const handleUsernameChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setUsername(e.target.value)
+    },
+    [],
+  )
+  const handlePasswordChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setPassword(e.target.value)
+    },
+    [],
+  )
   const handleSubmit = useCallback(
     async (e: React.SyntheticEvent) => {
       e.preventDefault()
