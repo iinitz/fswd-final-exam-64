@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose'
-import { composeWithMongoose } from 'graphql-compose-mongoose'
+import { composeMongoose } from 'graphql-compose-mongoose'
 import { ITweet } from '../types/models'
 
 const TweetSchema = new Schema<ITweet>(
@@ -28,4 +28,4 @@ const TweetSchema = new Schema<ITweet>(
 export const TweetModel = model<ITweet>('Tweet', TweetSchema)
 
 // API: Implement TweetTC here
-export const TweetTC = composeWithMongoose(TweetModel)
+export const TweetTC = composeMongoose(TweetModel)
