@@ -7,7 +7,7 @@
     "build": "tsc",
     "dev": "nodemon --trace-warnings",
     "preseed": "tsc",
-    "seed": "node -r dotenv/config ./dist/seed/index.js"
+    "seed": "node -r dotenv/config ./seed/index.js"
   },
   "dependencies": {
     "apollo-server-core": "^3.7.0",
