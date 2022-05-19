@@ -2,6 +2,6 @@
   "watch": [
     "src"
   ],
-  "ext": "ts",
-  "exec": "ts-node-dev -r dotenv/config src/app.ts"
+  "ext": "js",
+  "exec": "ts-node-dev -r dotenv/config src/app.js"
 }

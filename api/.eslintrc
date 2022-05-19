@@ -1,8 +1,8 @@
 {
   "extends": "iinitz/ts-base",
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
+  // "parserOptions": {
+  //   "project": "./tsconfig.json"
+  // },
   "rules": {
     "no-console": 0,
     "max-len": 0,
