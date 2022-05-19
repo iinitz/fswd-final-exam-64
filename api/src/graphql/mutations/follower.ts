@@ -6,7 +6,7 @@ import { FollowerTC } from '../../models/follower'
 import { IApolloContext } from '../../types'
 import { IFollower } from '../../types/models'
 
-export const follow = FollowerTC.mongooseResolvers.createOne({ record: { removeFields: ['_id', 'userId', 'createdAt', 'updatedAt'] } }).wrapResolve((next: ResolverRpCb<IFollower, IApolloContext>) => (rp: ResolverResolveParams<IFollower, IApolloContext>) => {
+export const follow = FollowerTC.mongooseResolvers.createOne( { record: { removeFields: ['_id', 'userId', 'createdAt', 'updatedAt'] } } ).wrapResolve((next: ResolverRpCb<IFollower, IApolloContext>) => (rp: ResolverResolveParams<IFollower, IApolloContext>) => {
   if (!rp.context.user) {
     throw new ForbiddenError('Unauthorized')
   }
