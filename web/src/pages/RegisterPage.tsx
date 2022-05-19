@@ -10,6 +10,11 @@ import './RegisterPage.css'
 
 // WEB: Implement register mutation here
 const REGISTER_MUTATION = gql`
+mutation($record: CreateOneUserInput!) {
+  register(record: $record) {
+    recordId
+  }
+}
 `
 
 const RegisterPage = () => {
@@ -37,7 +42,9 @@ const RegisterPage = () => {
       }
       try {
         setError('')
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const { data: registerData } = await registerMutation({ variables: { record } })
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if (registerData?.register?.recordId) {
           navigate('/login')
         }
