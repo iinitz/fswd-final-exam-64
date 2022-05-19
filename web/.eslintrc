@@ -4,9 +4,9 @@
     "project": "./tsconfig.json"
   },
   "rules": {
- 
     "linebreak-style": 0,
     "no-console": 0,
+    "noImplicitAny": true,
     "max-len": 0,
     "no-underscore-dangle": [
       "error",

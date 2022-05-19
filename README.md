@@ -1,8 +1,8 @@
 # FsWD 64 - Final exam
 
-## Student
-#### Student ID: 
-#### Name (TH): 
+## Student: 
+#### Student ID: 62070049
+#### Name (TH): โชติชัน วิจิตรแก้ว
 
 ## Demo
 - [Twitter clone](https://fswd64.devnss.com)
