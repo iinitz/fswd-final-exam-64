@@ -1,8 +1,8 @@
 # FsWD 64 - Final exam
 
 ## Student
-#### Student ID: 
-#### Name (TH): 
+#### Student ID: 62070180
+#### Name (TH): ศิวกร เปี่ยมงาม
 
 ## Demo
 - [Twitter clone](https://fswd64.devnss.com)
