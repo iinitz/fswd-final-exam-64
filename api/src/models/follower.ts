@@ -36,3 +36,4 @@ const FollowerTC = new Schema<IFollower>(
   }
 
 )
+export const FollowerTc = model<IFollower>('Follower', FollowerTC)

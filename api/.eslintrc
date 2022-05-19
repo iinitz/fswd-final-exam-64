@@ -13,6 +13,8 @@
           "_id"
         ]
       }
-    ]
+    ],
+    "@typescript-eslint/no-misused-promises": 0,
+    "linebreak-style": 0
   }
 }
