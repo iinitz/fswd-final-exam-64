@@ -25,6 +25,7 @@ query {
     retweet {
       _id
       retweetId
+      text
       user {
         fullname
         username
