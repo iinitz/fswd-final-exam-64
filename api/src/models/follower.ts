@@ -27,11 +27,15 @@ const FollowerTC = new Schema<IFollower>(
   {
     userId:{
       type: Schema.Types.ObjectId,
-      ref: 'User' 
+      ref: 'User' ,
+      required: true,
+      index: true,
     },
     followedId:{
       type: Schema.Types.ObjectId,
       ref: 'User',
+      required: true,
+      index: true,
     }
   }
 
