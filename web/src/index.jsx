@@ -10,7 +10,7 @@ import './index.css'
 
 // WEB: Implement apoloClient using uri from process.env.REACT_APP_GRAPHQL_URI here
 const client = new ApolloClient({
-  uri: 'http://127.0.0.1:3000/graphql',
+  uri: process.env.REACT_APP_GRAPHQL_URI,
   cache: new InMemoryCache(),
 })
 
