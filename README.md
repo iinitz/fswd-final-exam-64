@@ -1,8 +1,8 @@
 # FsWD 64 - Final exam
 
 ## Student
-#### Student ID: 
-#### Name (TH): 
+#### Student ID: 62070116
+#### Name (TH): ปวริศ วงสาเอียด
 
 ## Demo
 - [Twitter clone](https://fswd64.devnss.com)
