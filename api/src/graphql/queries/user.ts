@@ -18,3 +18,5 @@ export const me = schemaComposer.createResolver({
   },
 })
 // API: Implement resolver profile using findOne from UserTC
+
+export const profile = UserTC.mongooseResolvers.findOne()
