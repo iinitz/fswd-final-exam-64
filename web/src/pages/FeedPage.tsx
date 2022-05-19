@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql, useQuery } from '@apollo/client'
 import { Navigate } from 'react-router-dom'
 
 import { AppPageLayout } from '../components/Layout/AppPageLayout'
@@ -12,6 +12,15 @@ import './FeedPage.css'
 
 // WEB: Implement feed query here
 const FEED_QUERY = gql`
+query{
+  feed{
+    userId
+    text
+    retweetsCount
+    likeCount
+    
+  }
+}
 `
 
 const FeedPage = () => {
