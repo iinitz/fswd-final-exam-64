@@ -2,6 +2,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 import React from 'react'
 import { CookiesProvider } from 'react-cookie'
 import ReactDOM from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
 
 import App from './App'
 import { AppProvider } from './contexts/AppContext'
@@ -14,17 +15,19 @@ const client = new ApolloClient({
 })
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root')
+  document.getElementById('root'),
 )
 root.render(
   <React.StrictMode>
     {/* WEB: Implement ApolloProvider and BrowserRouter here */}
     <ApolloProvider client={client}>
-      <CookiesProvider>
-        <AppProvider>
-          <App />
-        </AppProvider>
-      </CookiesProvider>
+      <BrowserRouter>
+        <CookiesProvider>
+          <AppProvider>
+            <App />
+          </AppProvider>
+        </CookiesProvider>
+      </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>,
 )
