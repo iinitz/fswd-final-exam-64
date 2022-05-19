@@ -1,8 +1,8 @@
 # FsWD 64 - Final exam
 
 ## Student
-#### Student ID: 
-#### Name (TH): 
+#### Student ID: 62070183
+#### Name (TH): นาย ศุภกร กิติวัฒนากร
 
 ## Demo
 - [Twitter clone](https://fswd64.devnss.com)
