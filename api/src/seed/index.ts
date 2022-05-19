@@ -1,11 +1,12 @@
 import { AnyKeys, Schema } from 'mongoose'
 
-import { FollowerModel } from '../../models/follower'
-import { LikeModel } from '../../models/like'
-import { TweetModel } from '../../models/tweet'
-import { UserModel } from '../../models/user'
+import { FollowerModel } from '../models/follower'
+import { LikeModel } from '../models/like'
+import { TweetModel } from '../models/tweet'
+import { UserModel } from '../models/user'
 import '../mongoose-connect'
-import { ITweet, IUser } from '../../types/models'
+import { ITweet, IUser } from '../types/models'
+
 
 const USERS: AnyKeys<IUser>[] = [
   {
