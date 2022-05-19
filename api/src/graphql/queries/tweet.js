@@ -6,9 +6,7 @@ import { UserModel } from '../../models/user'
 import { IApolloContext } from '../../types'
 import { ITweet } from '../../types/models'
 
-interface ITweetsArgs {
-  username: string
-}
+
 export const tweets = schemaComposer.createResolver({
   name: 'tweets',
   kind: 'query',
@@ -16,13 +14,13 @@ export const tweets = schemaComposer.createResolver({
   args: {
     username: 'String!',
   },
-  resolve: async ({ args }: ResolverResolveParams<ITweet, IApolloContext, ITweetsArgs>) => {
+  resolve: async ({ args }) => {
     const { username } = args
     const user = await UserModel.findOne({ username })
     if (!user) {
       return []
     }
-    const records = await TweetModel.find({ userId: user._id as string }).sort({ createdAt: -1 }).lean()
+    const records = await TweetModel.find({ userId: user._id }).sort({ createdAt: -1 }).lean()
     return records
   },
 })
@@ -30,7 +28,7 @@ export const feed = schemaComposer.createResolver({
   name: 'feed',
   kind: 'query',
   type: TweetTC.mongooseResolvers.findMany().getType(),
-  resolve: async ({ context }: ResolverResolveParams<ITweet, IApolloContext>) => {
+  resolve: async ({ context }) => {
     if (!context.user) {
       return []
     }
