@@ -1,23 +1,44 @@
-import { gql } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 import { useCallback, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { ErrorMessage } from '../components/ErrorMessage'
 import { LandingPageLayout } from '../components/Layout/LandingPageLayout'
-import { ICreateOneUserInput } from '../types'
+import { ICreateOneUserInput, IMutation, IMutationRegisterArgs } from '../types'
 
 import './RegisterPage.css'
 
 // WEB: Implement register mutation here
 const REGISTER_MUTATION = gql`
+mutation ($record: CreateOneUserInput!) {
+  register (record: $record) {
+    recordId
+  }
+}
 `
 
 const RegisterPage = () => {
   const navigate = useNavigate()
   // WEB: Implement fullname, username and password state here
+  const [fullname, setFullname] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   // WEB: Implement useMutation for registerMutation here
+  const [registerMutation] = useMutation<IMutation, IMutationRegisterArgs>(REGISTER_MUTATION)
   // WEB: Implement handleFullnameChange, handleUsernameChange and handlePasswordChange here
+  const handleFullnameChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setFullname(e.target.value),
+    [],
+  )
+  const handleUsernameChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value),
+    [],
+  )
+  const handlePasswordChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value),
+    [],
+  )
   const handleSubmit = useCallback(
     async (e: React.SyntheticEvent) => {
       e.preventDefault()

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "ci": "cypress run",
     "test": "cypress open",
     "pretest": "yarn generate",
     "generate": "graphql-codegen"

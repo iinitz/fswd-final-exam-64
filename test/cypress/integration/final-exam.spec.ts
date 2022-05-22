@@ -1,7 +1,7 @@
-import { FeedPage } from './feed-page.spec'
-import { LoginPage } from './login-page.spec'
-import { ProfilePage } from './profile-page.spec'
-import { RegisterPage } from './register-page.spec'
+import { FeedPage } from '../spec/feed-page.spec'
+import { LoginPage } from '../spec/login-page.spec'
+import { ProfilePage } from '../spec/profile-page.spec'
+import { RegisterPage } from '../spec/register-page.spec'
 
 describe('fswd-exam-64', () => {
   RegisterPage()

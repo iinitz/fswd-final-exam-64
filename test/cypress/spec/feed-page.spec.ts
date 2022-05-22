@@ -1,8 +1,10 @@
+/* eslint-disable cypress/no-unnecessary-waiting */
 import faker from '@faker-js/faker'
 
 import { feedQuery } from '../lib/feed'
 import { login } from '../lib/login'
 import { testTweetContent, testUnlikeTweet, testLikeTweet } from '../lib/tweet'
+import { username, password } from '../mock/alice.json'
 
 export const FeedPage = () => {
   describe('Feed Page', () => {
@@ -11,8 +13,14 @@ export const FeedPage = () => {
       globalToken = await login()
     })
     beforeEach(() => {
-      cy.visit('/feed')
+      cy.visit('/login')
+      cy.getByTestID('username-input').type(username)
+      cy.getByTestID('password-input').type(password)
+      cy.getByTestID('login-button').click()
       cy.setCookie('token', globalToken)
+    })
+    afterEach(() => {
+      cy.getByTestID('logout-link').click()
     })
 
     it('New tweet input, state and text length working correctly', () => {
@@ -41,6 +49,7 @@ export const FeedPage = () => {
     })
     it('User tweets display correctly', async () => {
       const tweets = await feedQuery()
+      cy.log(JSON.stringify(tweets))
       cy.getByTestID('tweets').children().should('have.length', tweets.length)
     })
     it('Tweet content, user info and actions display correctly', async () => {
@@ -56,6 +65,8 @@ export const FeedPage = () => {
       })
     })
     it('Retweet success display new tweet correctly', async () => {
+      cy.getByTestID('new-tweet-input').focus().type('Hello World')
+      cy.getByTestID('new-tweet-button').click()
       const tweets = await feedQuery()
       const [tweet] = tweets
       cy.getByTestID(`tweet-${tweet._id as string}-retweet-button`).click()

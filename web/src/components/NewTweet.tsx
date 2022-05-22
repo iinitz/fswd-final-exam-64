@@ -1,24 +1,40 @@
-import { gql } from '@apollo/client'
-import { useCallback } from 'react'
+import { gql, useMutation } from '@apollo/client'
+import { useCallback, useState } from 'react'
 
 import { MAX_TWEET_LENGTH } from '../constants'
 import { useApp } from '../contexts/AppContext'
 import { usePage } from '../contexts/PageContext'
-import { ICreateOneTweetInput } from '../types'
+import { ICreateOneTweetInput, IMutation, IMutationCreateTweetArgs } from '../types'
 
 import { Avatar } from './Avatar'
 import './NewTweet.css'
 
 // WEB: Implement createTweet mutation here
 const CREATE_TWEET_MUTATION = gql`
+mutation ($record: CreateOneTweetInput!) {
+  createTweet (record: $record) {
+    recordId
+  }
+}
 `
 
 export const NewTweet = () => {
   const { user } = useApp()
   const { refetch } = usePage()
   // WEB: Implement text state here
+  const [text, setText] = useState('')
   // WEB: Implement useMutation for createTweetMutation here
+  const [createTweetMutation] = useMutation<IMutation, IMutationCreateTweetArgs>(CREATE_TWEET_MUTATION)
   // WEB: Implement useCallback for handleTextChange with condition text length <= MAX_TWEET_LENGTH here
+  const handleTextChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      const { value } = e.target
+      if (value.length <= MAX_TWEET_LENGTH) {
+        setText(value)
+      }
+    },
+    [],
+  )
   const handleCreateTweet = useCallback(
     async () => {
       const record: ICreateOneTweetInput = {
@@ -45,6 +61,8 @@ export const NewTweet = () => {
         <div className="new-tweet-input">
           {/* WEB: Implement textarea with text state here */}
           <textarea
+            value={text}
+            onChange={handleTextChange}
             data-testid="new-tweet-input"
             placeholder="What's happening?"
           />
@@ -54,6 +72,8 @@ export const NewTweet = () => {
           {/* WEB: Implement Tweet button call handleCreateTweet when click and disabled when text length = 0 here */}
           <button
             type="button"
+            onClick={handleCreateTweet}
+            disabled={text.length === 0}
             data-testid="new-tweet-button"
           >
             Tweet

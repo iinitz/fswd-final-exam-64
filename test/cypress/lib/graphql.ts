@@ -2,7 +2,7 @@ export const graphql = <TData, TVariables = object | undefined>(query: string, v
   cy
     .request({
       method: 'POST',
-      url: 'http://localhost:3001/graphql',
+      url: 'https://api.fswd64.devnss.com/graphql',
       body: {
         query,
         variables,
