@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 import moment from 'moment'
 import { useCallback } from 'react'
 import { Link } from 'react-router-dom'
@@ -7,20 +7,35 @@ import { useApp } from '../contexts/AppContext'
 import { usePage } from '../contexts/PageContext'
 import { plural } from '../lib/utils'
 import {
-  ICreateOneLikeInput, ICreateOneTweetInput, IFilterRemoveOneLikeInput, ITweet,
+  ICreateOneLikeInput, ICreateOneTweetInput, IFilterRemoveOneLikeInput, IMutation, IMutationCreateTweetArgs, IMutationLikeArgs, IMutationUnlikeArgs, ITweet,
 } from '../types'
 
 import { Avatar } from './Avatar'
 import './TweetContent.css'
 
-// WEB: Implement retweet mutation here
+// WEB: #Implement retweet mutation here
 const RETWEET_MUTATION = gql`
+mutation ($record: CreateOneTweetInput!) {
+  createTweet (record: $record) {
+    recordId
+  }
+}
 `
-// WEB: Implement like mutation here
+// WEB: #Implement like mutation here
 const LIKE_MUTATION = gql`
+mutation ($record: CreateOneLikeInput!) {
+  like (record: $record) {
+    recordId
+  }
+}
 `
-// WEB: Implement unlike mutation here
+// WEB: #Implement unlike mutation here
 const UNLIKE_MUTATION = gql`
+mutation ($filter: FilterRemoveOneLikeInput!) {
+  unlike (filter: $filter) {
+    recordId
+  }
+}
 `
 
 export interface ITweetContentProps {
@@ -29,7 +44,10 @@ export interface ITweetContentProps {
 export const TweetContent = ({ tweet }: ITweetContentProps) => {
   const { user } = useApp()
   const { refetch } = usePage()
-  // WEB: Implement useMutation for retweetMutation, likeMutation, unlikeMutation here
+  // WEB: #Implement useMutation for retweetMutation, likeMutation, unlikeMutation here
+  const [retweetMutation] = useMutation<IMutation, IMutationCreateTweetArgs>(RETWEET_MUTATION)
+  const [likeMutation] = useMutation<IMutation, IMutationLikeArgs>(LIKE_MUTATION)
+  const [unlikeMutation] = useMutation<IMutation, IMutationUnlikeArgs>(UNLIKE_MUTATION)
   const handleRetweet = useCallback(
     async () => {
       const record: ICreateOneTweetInput = {
@@ -42,7 +60,7 @@ export const TweetContent = ({ tweet }: ITweetContentProps) => {
         console.error(err)
       }
     },
-    [refetch, retweetMutation, tweet._id, tweet.text, tweet.user?.username],
+    [refetch, retweetMutation, tweet._id],
   )
   const handleLike = useCallback(
     async () => {

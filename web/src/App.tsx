@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 import { Loading } from './components/Loading'
 
@@ -13,12 +13,18 @@ const RegisterPage = lazy(() => import('./pages/RegisterPage'))
 const App = () => (
   <Suspense fallback={<Loading />}>
     <Routes>
-      {/* WEB: Implement route /login element LoginPage here */}
-      {/* WEB: Implement route /register element RegisterPage here */}
-      {/* WEB: Implement route /feed element FeedPage here */}
-      {/* WEB: Implement route /logout element LogoutPage here */}
-      {/* WEB: Implement route / element HomePage here */}
-      {/* WEB: Implement route /:username element ProfilePage here */}
+      {/* WEB: #Implement route /login element LoginPage here */}
+      <Route path="/login" element={<LoginPage />} />
+      {/* WEB: #Implement route /register element RegisterPage here */}
+      <Route path="/register" element={<RegisterPage />} />
+      {/* WEB: #Implement route /feed element FeedPage here */}
+      <Route path="/feed" element={<FeedPage />} />
+      {/* WEB: #Implement route /logout element LogoutPage here */}
+      <Route path="/logout" element={<LogoutPage />} />
+      {/* WEB: #Implement route / element HomePage here */}
+      <Route path="/" element={<HomePage />} />
+      {/* WEB: #Implement route /:username element ProfilePage here */}
+      <Route path="/:username" element={<ProfilePage />} />
     </Routes>
   </Suspense>
 )
